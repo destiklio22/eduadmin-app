@@ -23,97 +23,169 @@ import {
   FileSpreadsheet,
   ArrowRight,
   ArrowLeft,
-  LogOut
+  LogOut,
+  ExternalLink
 } from 'lucide-react';
 
-// --- BANK DATA KURIKULUM MERDEKA SEMUA JENJANG & FASE ---
-const CURRICULUM_TEMPLATES = {
-  'Fase A (Kelas 1-2 SD)': {
-    defaultMapel: 'Bahasa Indonesia',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase A, peserta didik memiliki kemampuan berbahasa untuk berkomunikasi dan bernalar sesuai dengan tujuan kepada teman sebaya dan orang dewasa di sekitar tentang diri dan lingkungannya. Peserta didik mampu memahami dan menyampaikan pesan secara lisan, membaca dan mengeja kata-kata sederhana dengan fasih, serta menulis kalimat pendek dengan ejaan yang tepat.',
+// GANTI TAUTAN INI DENGAN LINK PRODUK LYNK.ID ANDA
+const LYNK_ID_URL = 'https://lynk.id';
+
+// --- BANK DATA KURIKULUM MERDEKA LENGKAP (FASE A - F & MULTI MAPEL) ---
+const SUBJECT_BANK = {
+  'Bahasa Indonesia': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik memiliki kemampuan berbahasa untuk berkomunikasi dan bernalar sesuai dengan tujuan, konteks sosial, akademis, dan dunia kerja. Peserta didik mampu memahami, mengolah, menginterpretasi, dan mengevaluasi informasi dari berbagai tipe teks fiksi dan informasional serta menyajikannya secara lisan dan tulis dengan kaidah kebahasaan yang tepat.',
     tps: [
-      { id: 'tp-a1', kode: 'TP 1.1', judul: 'Mengenal Huruf, Suku Kata, dan Membaca Nyaring Kata Sederhana Sehari-hari', jp: 16, status: 'SELESAI', elemen: 'Membaca dan Memirsa' },
-      { id: 'tp-a2', kode: 'TP 1.2', judul: 'Menyimak Cerita Pendek dan Menceritakan Kembali Isi Cerita dengan Bahasa Sendiri', jp: 14, status: 'SELESAI', elemen: 'Menyimak' },
-      { id: 'tp-a3', kode: 'TP 1.3', judul: 'Menulis Kalimat Sederhana Tentang Diri Sendiri dan Anggota Keluarga', jp: 16, status: 'DRAFT', elemen: 'Menulis' },
-      { id: 'tp-a4', kode: 'TP 1.4', judul: 'Menggunakan Ungkapan Santun (Terima Kasih, Maaf, Tolong) dalam Percakapan', jp: 10, status: 'DRAFT', elemen: 'Berbicara dan Mempresentasikan' }
+      { kode: 'TP 2.1', judul: 'Menganalisis Informasi, Ide Pokok, dan Struktur Teks Eksplanasi dan Berita', jp: 12, status: 'SELESAI', elemen: 'Membaca dan Memirsa' },
+      { kode: 'TP 2.2', judul: 'Menyimak dan Mengevaluasi Gagasan dari Teks Pidato / Diskusi Formal', jp: 10, status: 'SELESAI', elemen: 'Menyimak' },
+      { kode: 'TP 2.3', judul: 'Menulis Teks Argumentasi dan Teks Tanggapan Kritis Berdasarkan Data Faktual', jp: 14, status: 'DRAFT', elemen: 'Menulis' },
+      { kode: 'TP 2.4', judul: 'Mempresentasikan Karya Tulis dan Mengapresiasi Puisi / Cerpen Secara Lisan', jp: 10, status: 'DRAFT', elemen: 'Berbicara dan Mempresentasikan' }
     ],
     moduls: [
-      { id: 'ma-a1', judul: 'Modul Ajar: Aku dan Keluargaku (Membaca Permulaan)', tpKode: 'TP 1.1', pertemuan: '4 Pertemuan (16 JP)', model: 'Pembelajaran Bermain & Literasi Dasar', status: 'Siap Cetak' },
-      { id: 'ma-a2', judul: 'Modul Ajar: Dongeng Hewan & Pesan Baik', tpKode: 'TP 1.2', pertemuan: '3 Pertemuan (14 JP)', model: 'Storytelling & Diskusi Kelompok', status: 'Siap Cetak' }
+      { judul: 'Modul Ajar: Mengkritisi Informasi pada Teks Berita & Eksplanasi', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Discovery Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Menulis Teks Argumentasi Berbasis Fakta', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
     ]
   },
-  'Fase B (Kelas 3-4 SD)': {
-    defaultMapel: 'IPAS (Ilmu Pengetahuan Alam dan Sosial)',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase B, peserta didik mengidentifikasi keterkaitan antara pengetahuan yang baru saja diperoleh serta mencari tahu bagaimana konsep-konsep Ilmu Pengetahuan Alam dan Sosial berkaitan satu sama lain yang ada di lingkungan sekitar dalam kehidupan sehari-hari melalui pengamatan dan percobaan sederhana.',
+  'Matematika': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik menunjukkan pemahaman dan intuisi bilangan, melakukan operasi aljabar, fungsi, persamaan dan pertidaksamaan linear, menerapkan teorema geometri dan pengukuran bangun ruang, serta menganalisis data statistik dan peluang dalam pemecahan masalah kehidupan nyata.',
     tps: [
-      { id: 'tp-b1', kode: 'TP 2.1', judul: 'Menganalisis Bagian Tubuh Tumbuhan dan Fungsinya bagi Kehidupan Manusia', jp: 12, status: 'SELESAI', elemen: 'Pemahaman IPAS' },
-      { id: 'tp-b2', kode: 'TP 2.2', judul: 'Mengidentifikasi Wujud Zat dan Perubahan Wujud Benda di Lingkungan Sekitar', jp: 14, status: 'SELESAI', elemen: 'Keterampilan Proses' },
-      { id: 'tp-b3', kode: 'TP 2.3', judul: 'Mengenal Keragaman Budaya, Kearifan Lokal, dan Bentang Alam Daerah Setempat', jp: 12, status: 'DRAFT', elemen: 'Pemahaman IPAS' },
-      { id: 'tp-b4', kode: 'TP 2.4', judul: 'Memahami Gaya di Sekitar Kita dan Pengaruhnya Terhadap Gerak Benda', jp: 10, status: 'DRAFT', elemen: 'Keterampilan Proses' }
+      { kode: 'TP 2.1', judul: 'Menyelesaikan Sistem Persamaan Linear dan Pemodelan Masalah Sehari-hari', jp: 14, status: 'SELESAI', elemen: 'Aljabar' },
+      { kode: 'TP 2.2', judul: 'Menerapkan Teorema Pythagoras dan Hubungan Antar Sudut pada Geometri', jp: 12, status: 'SELESAI', elemen: 'Geometri' },
+      { kode: 'TP 2.3', judul: 'Menghitung Luas Permukaan dan Volume Bangun Ruang Sisi Datar & Lengkung', jp: 14, status: 'DRAFT', elemen: 'Pengukuran' },
+      { kode: 'TP 2.4', judul: 'Menganalisis Ukuran Pemusatan Data (Mean, Median, Modus) dan Peluang Empirik', jp: 12, status: 'DRAFT', elemen: 'Analisis Data dan Peluang' }
     ],
     moduls: [
-      { id: 'ma-b1', judul: 'Modul Ajar: Tumbuhan Sumber Kehidupan di Bumi', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Inquiry-Based Learning', status: 'Siap Cetak' },
-      { id: 'ma-b2', judul: 'Modul Ajar: Eksperimen Perubahan Wujud Zat', tpKode: 'TP 2.2', pertemuan: '4 Pertemuan (14 JP)', model: 'Experimental Learning', status: 'Siap Cetak' }
+      { judul: 'Modul Ajar: Pemodelan Sistem Persamaan Linear', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (14 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Eksplorasi Bangun Ruang & Pengukuran', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
     ]
   },
-  'Fase C (Kelas 5-6 SD)': {
-    defaultMapel: 'Matematika',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase C, peserta didik dapat menunjukkan pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 1.000.000, melakukan operasi hitung pecahan dan desimal, menghitung luas dan volume bangun ruang sederhana, serta menganalisis data penyajian tabel dan diagram batang.',
+  'Bahasa Inggris': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik menggunakan teks lisan, tulisan, dan visual dalam bahasa Inggris untuk berinteraksi dan berkomunikasi dalam konteks yang beragam. Peserta didik memahami ide utama dan detail relevan dari berbagai jenis teks (recount, narrative, descriptive, procedure, exposition) serta menyusun teks terstruktur.',
     tps: [
-      { id: 'tp-c1', kode: 'TP 2.1', judul: 'Melakukan Operasi Penjumlahan, Pengurangan, Perkalian, dan Pembagian Pecahan', jp: 15, status: 'SELESAI', elemen: 'Bilangan' },
-      { id: 'tp-c2', kode: 'TP 2.2', judul: 'Menghitung Volume dan Luas Permukaan Bangun Ruang Kubus dan Balok', jp: 15, status: 'SELESAI', elemen: 'Pengukuran & Geometri' },
-      { id: 'tp-c3', kode: 'TP 2.3', judul: 'Menyelesaikan Masalah Sehari-hari yang Berkaitan dengan Rasio dan Skala Peta', jp: 12, status: 'DRAFT', elemen: 'Aljabar & Rasio' },
-      { id: 'tp-c4', kode: 'TP 2.4', judul: 'Mengumpulkan, Membaca, dan Menafsirkan Data dalam Diagram Batang dan Garis', jp: 10, status: 'DRAFT', elemen: 'Analisis Data dan Peluang' }
+      { kode: 'TP 2.1', judul: 'Memahami Struktur dan Unsur Kebahasaan Recount Text (Pengalaman Pribadi)', jp: 12, status: 'SELESAI', elemen: 'Membaca - Memirsa' },
+      { kode: 'TP 2.2', judul: 'Menyusun dan Menceritakan Pengalaman Masa Lampau Menggunakan Simple Past Tense', jp: 10, status: 'SELESAI', elemen: 'Menulis - Mempresentasikan' },
+      { kode: 'TP 2.3', judul: 'Menganalisis Nilai Moral dan Alur Cerita pada Narrative Text (Fable & Folktale)', jp: 14, status: 'DRAFT', elemen: 'Menyimak - Berbicara' },
+      { kode: 'TP 2.4', judul: 'Membuat Pesan Singkat, Pengumuman (Announcement), dan Pemberitahuan (Notice)', jp: 8, status: 'DRAFT', elemen: 'Menulis - Mempresentasikan' }
     ],
     moduls: [
-      { id: 'ma-c1', judul: 'Modul Ajar: Operasi Hitung Pecahan dalam Kehidupan', tpKode: 'TP 2.1', pertemuan: '5 Pertemuan (15 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
-      { id: 'ma-c2', judul: 'Modul Ajar: Bangun Ruang Kubus dan Balok', tpKode: 'TP 2.2', pertemuan: '5 Pertemuan (15 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+      { judul: 'Modul Ajar: My Unforgettable Holiday (Recount Text)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Genre-Based Approach (GBA)', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Telling Past Events with Simple Past Tense', tpKode: 'TP 2.2', pertemuan: '3 Pertemuan (10 JP)', model: 'Discovery Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Indonesian Folktales & Moral Values', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Perlu Review' }
     ]
   },
-  'Fase D (Kelas 7-9 SMP)': {
-    defaultMapel: 'Bahasa Inggris',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase D, peserta didik menggunakan teks lisan, tulisan, dan visual dalam bahasa Inggris untuk berinteraksi dan berkomunikasi dalam konteks yang lebih beragam serta dalam situasi formal dan informal. Peserta didik dapat memahami ide utama dan detail relevan dari berbagai jenis teks (recount, narrative, descriptive, dan procedure) serta menyusun teks terstruktur.',
+  'IPAS (Ilmu Pengetahuan Alam dan Sosial)': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik mengidentifikasi keterkaitan antara pengetahuan alam dan sosial di lingkungan sekitar, memahami siklus makhluk hidup, wujud zat dan perubahannya, energi, keragaman budaya lokal, serta interaksi manusia dengan lingkungan melalui pengamatan ilmiah.',
     tps: [
-      { id: 'tp-d1', kode: 'TP 2.1', judul: 'Memahami Struktur dan Unsur Kebahasaan Recount Text (Pengalaman Pribadi)', jp: 12, status: 'SELESAI', elemen: 'Membaca - Memirsa' },
-      { id: 'tp-d2', kode: 'TP 2.2', judul: 'Menyusun dan Menceritakan Pengalaman Masa Lampau Menggunakan Simple Past Tense', jp: 10, status: 'SELESAI', elemen: 'Menulis - Mempresentasikan' },
-      { id: 'tp-d3', kode: 'TP 2.3', judul: 'Menganalisis Nilai Moral dan Alur Cerita pada Narrative Text (Fable & Folktale)', jp: 14, status: 'DRAFT', elemen: 'Menyimak - Berbicara' },
-      { id: 'tp-d4', kode: 'TP 2.4', judul: 'Membuat Pesan Singkat, Pengumuman (Announcement), dan Pemberitahuan (Notice)', jp: 8, status: 'DRAFT', elemen: 'Menulis - Mempresentasikan' }
+      { kode: 'TP 2.1', judul: 'Menganalisis Bagian Tubuh Tumbuhan dan Proses Fotosintesis bagi Kehidupan', jp: 12, status: 'SELESAI', elemen: 'Pemahaman IPAS' },
+      { kode: 'TP 2.2', judul: 'Mengidentifikasi Wujud Zat dan Perubahan Wujud Benda di Lingkungan Sekitar', jp: 14, status: 'SELESAI', elemen: 'Keterampilan Proses' },
+      { kode: 'TP 2.3', judul: 'Mengenal Keragaman Budaya, Kearifan Lokal, dan Bentang Alam Daerah Setempat', jp: 12, status: 'DRAFT', elemen: 'Pemahaman IPAS' },
+      { kode: 'TP 2.4', judul: 'Memahami Gaya di Sekitar Kita dan Pengaruhnya Terhadap Gerak Benda', jp: 10, status: 'DRAFT', elemen: 'Keterampilan Proses' }
     ],
     moduls: [
-      { id: 'ma-d1', judul: 'Modul Ajar: My Unforgettable Holiday (Recount Text)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Genre-Based Approach (GBA)', status: 'Siap Cetak' },
-      { id: 'ma-d2', judul: 'Modul Ajar: Telling Past Events with Simple Past Tense', tpKode: 'TP 2.2', pertemuan: '3 Pertemuan (10 JP)', model: 'Discovery Learning', status: 'Siap Cetak' },
-      { id: 'ma-d3', judul: 'Modul Ajar: Indonesian Folktales & Moral Values', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Perlu Review' }
+      { judul: 'Modul Ajar: Tumbuhan Sumber Kehidupan di Bumi', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Inquiry-Based Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Eksperimen Perubahan Wujud Zat', tpKode: 'TP 2.2', pertemuan: '4 Pertemuan (14 JP)', model: 'Experimental Learning', status: 'Siap Cetak' }
     ]
   },
-  'Fase E (Kelas 10 SMA/SMK)': {
-    defaultMapel: 'Informatika',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase E, peserta didik mampu memahami peran sistem operasi dan mekanisme internal yang terjadi pada interaksi antara perangkat keras, perangkat lunak, dan pengguna, menerapkan berpikir komputasional untuk menyelesaikan persoalan kompleks, serta merancang algoritma pemrograman terstruktur.',
+  'IPA (Ilmu Pengetahuan Alam)': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik mampu melakukan klasifikasi makhluk hidup dan benda, memahami struktur sel dan sistem organ manusia, menganalisis gaya, gerak, energi, getaran dan gelombang, serta menerapkan keterampilan proses inkuiri dalam penyelidikan ilmiah.',
     tps: [
-      { id: 'tp-e1', kode: 'TP 2.1', judul: 'Menerapkan Strategi Algoritmik Standar (Searching & Sorting) pada Pemecahan Masalah', jp: 12, status: 'SELESAI', elemen: 'Berpikir Komputasional' },
-      { id: 'tp-e2', kode: 'TP 2.2', judul: 'Menganalisis Jaringan Komputer Lokal, Internet, dan Keamanan Data Digital', jp: 10, status: 'SELESAI', elemen: 'Jaringan Komputer & Internet' },
-      { id: 'tp-e3', kode: 'TP 2.3', judul: 'Melakukan Pengolahan, Visualisasi, dan Analisis Data Menggunakan Lembar Kerja', jp: 12, status: 'DRAFT', elemen: 'Analisis Data' },
-      { id: 'tp-e4', kode: 'TP 2.4', judul: 'Mengembangkan Program Sederhana Menggunakan Bahasa Pemrograman Prosedural', jp: 14, status: 'DRAFT', elemen: 'Algoritma dan Pemrograman' }
+      { kode: 'TP 2.1', judul: 'Menganalisis Sistem Pencernaan, Pernapasan, dan Peredaran Darah Manusia', jp: 14, status: 'SELESAI', elemen: 'Pemahaman IPA' },
+      { kode: 'TP 2.2', judul: 'Menyelidiki Konsep Usaha, Energi, dan Pesawat Sederhana dalam Kehidupan', jp: 12, status: 'SELESAI', elemen: 'Keterampilan Proses' },
+      { kode: 'TP 2.3', judul: 'Menganalisis Getaran, Gelombang, Cahaya, dan Alat Optik Sederhana', jp: 14, status: 'DRAFT', elemen: 'Pemahaman IPA' },
+      { kode: 'TP 2.4', judul: 'Mengevaluasi Unsur, Senyawa, Campuran, dan Pemisahan Campuran Sederhana', jp: 10, status: 'DRAFT', elemen: 'Keterampilan Proses' }
     ],
     moduls: [
-      { id: 'ma-e1', judul: 'Modul Ajar: Berpikir Komputasional (Searching & Sorting)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
-      { id: 'ma-e2', judul: 'Modul Ajar: Algoritma Pemrograman Dasar', tpKode: 'TP 2.4', pertemuan: '5 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+      { judul: 'Modul Ajar: Sistem Organ Manusia & Pola Hidup Sehat', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (14 JP)', model: 'Inquiry-Based Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Praktikum Getaran, Gelombang, dan Cahaya', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' }
     ]
   },
-  'Fase F (Kelas 11-12 SMA/SMK)': {
-    defaultMapel: 'Ekonomi / Lintas Minat',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase F, peserta didik mampu memahami dan menganalisis berbagai permasalahan ekonomi di tingkat nasional dan global, mengevaluasi kebijakan moneter dan fiskal, menyusun laporan keuangan perusahaan jasa dan dagang sederhana, serta merancang strategi kewirausahaan berkelanjutan.',
+  'IPS (Ilmu Pengetahuan Sosial)': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik memahami keberagaman kondisi geografis Indonesia, konektivitas antarruang, interaksi sosial dan dinamika kependudukan, kegiatan ekonomi masyarakat, serta perkembangan sejarah peradaban nusantara hingga masa modern.',
     tps: [
-      { id: 'tp-f1', kode: 'TP 2.1', judul: 'Menganalisis Pendapatan Nasional, Pertumbuhan Ekonomi, dan Kesenjangan Distribusi', jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
-      { id: 'tp-f2', kode: 'TP 2.2', judul: 'Mengevaluasi Dampak Inflasi, Kebijakan Moneter Bank Sentral, dan Kebijakan Fiskal', jp: 12, status: 'SELESAI', elemen: 'Keterampilan Proses' },
-      { id: 'tp-f3', kode: 'TP 2.3', judul: 'Menganalisis Perdagangan Internasional, Neraca Pembayaran, dan Kurs Valuta Asing', jp: 10, status: 'DRAFT', elemen: 'Pemahaman Konsep' },
-      { id: 'tp-f4', kode: 'TP 2.4', judul: 'Menyusun Siklus Akuntansi Perusahaan Jasa dan Laporan Laba Rugi Sederhana', jp: 16, status: 'DRAFT', elemen: 'Keterampilan Proses' }
+      { kode: 'TP 2.1', judul: 'Menganalisis Kondisi Geografis, Sumber Daya Alam, dan Pelestarian Lingkungan', jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
+      { kode: 'TP 2.2', judul: 'Mengevaluasi Interaksi Sosial, Lembaga Sosial, dan Mobilitas Masyarakat', jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
+      { kode: 'TP 2.3', judul: 'Menganalisis Kegiatan Ekonomi (Produksi, Distribusi, Konsumsi) dan Pasar', jp: 12, status: 'DRAFT', elemen: 'Keterampilan Proses' },
+      { kode: 'TP 2.4', judul: 'Menelusuri Perkembangan Masyarakat Nusantara pada Masa Kerajaan hingga Kolonial', jp: 12, status: 'DRAFT', elemen: 'Keterampilan Proses' }
     ],
     moduls: [
-      { id: 'ma-f1', judul: 'Modul Ajar: Analisis Pendapatan Nasional & Pertumbuhan', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Case-Based Learning', status: 'Siap Cetak' },
-      { id: 'ma-f2', judul: 'Modul Ajar: Praktik Siklus Akuntansi Perusahaan Jasa', tpKode: 'TP 2.4', pertemuan: '4 Pertemuan (16 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+      { judul: 'Modul Ajar: Potensi Sumber Daya Alam & Kemaritiman Indonesia', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Dinamika Kegiatan Ekonomi & Kewirausahaan', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (12 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+    ]
+  },
+  'Pendidikan Pancasila': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik memahami kronologi sejarah kelahiran Pancasila, meneladani sikap para perumus Pancasila, menerapkan nilai-nilai Pancasila dalam kehidupan bermasyarakat, mematuhi norma dan UUD NRI Tahun 1945, serta menjaga keutuhan NKRI dalam bingkai Bhinneka Tunggal Ika.',
+    tps: [
+      { kode: 'TP 2.1', judul: 'Menganalisis Kedudukan dan Fungsi Pancasila sebagai Dasar Negara dan Pandangan Hidup', jp: 10, status: 'SELESAI', elemen: 'Pancasila' },
+      { kode: 'TP 2.2', judul: 'Menerapkan Tata Urutan Peraturan Perundang-undangan dalam Kehidupan Sehari-hari', jp: 10, status: 'SELESAI', elemen: 'UUD NRI Tahun 1945' },
+      { kode: 'TP 2.3', judul: 'Menghargai Keberagaman Suku, Agama, Ras, dan Antargolongan dalam Bhinneka Tunggal Ika', jp: 10, status: 'DRAFT', elemen: 'Bhinneka Tunggal Ika' },
+      { kode: 'TP 2.4', judul: 'Menunjukkan Komitmen Menjaga Keutuhan Wilayah Negara Kesatuan Republik Indonesia', jp: 8, status: 'DRAFT', elemen: 'NKRI' }
+    ],
+    moduls: [
+      { judul: 'Modul Ajar: Mengamalkan Nilai Pancasila di Lingkungan Sekolah', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (10 JP)', model: 'Value Clarification Technique', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Harmoni dalam Keberagaman Bhinneka Tunggal Ika', tpKode: 'TP 2.3', pertemuan: '3 Pertemuan (10 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+    ]
+  },
+  'Informatika': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik menerapkan berpikir komputasional untuk menyelesaikan persoalan kompleks, memahami sistem komputer dan jaringan internet, melakukan pengolahan serta analisis data digital, dan mengembangkan algoritma pemrograman terstruktur secara etis dan aman.',
+    tps: [
+      { kode: 'TP 2.1', judul: 'Menerapkan Strategi Algoritmik Standar (Searching & Sorting) pada Pemecahan Masalah', jp: 12, status: 'SELESAI', elemen: 'Berpikir Komputasional' },
+      { kode: 'TP 2.2', judul: 'Menganalisis Jaringan Komputer Lokal, Internet, dan Keamanan Data Digital', jp: 10, status: 'SELESAI', elemen: 'Jaringan Komputer & Internet' },
+      { kode: 'TP 2.3', judul: 'Melakukan Pengolahan, Visualisasi, dan Analisis Data Menggunakan Lembar Kerja', jp: 12, status: 'DRAFT', elemen: 'Analisis Data' },
+      { kode: 'TP 2.4', judul: 'Mengembangkan Program Sederhana Menggunakan Bahasa Pemrograman Prosedural', jp: 14, status: 'DRAFT', elemen: 'Algoritma dan Pemrograman' }
+    ],
+    moduls: [
+      { judul: 'Modul Ajar: Berpikir Komputasional (Searching & Sorting)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Algoritma Pemrograman Dasar', tpKode: 'TP 2.4', pertemuan: '5 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
+    ]
+  },
+  'PAI & Budi Pekerti': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik memahami ayat Al-Qur’an dan hadis pilihan tentang toleransi dan menuntut ilmu, memperkuat keimanan kepada kitab dan rasul Allah, membiasakan akhlak terpuji, melaksanakan ketentuan ibadah muamalah dengan benar, serta meneladani sejarah peradaban Islam.',
+    tps: [
+      { kode: 'TP 2.1', judul: 'Membaca, Mengartikan, dan Mengamalkan Kandungan Ayat tentang Sikap Toleransi', jp: 12, status: 'SELESAI', elemen: 'Al-Qur’an dan Hadis' },
+      { kode: 'TP 2.2', judul: 'Meyakini Keberadaan Rasul-Rasul Allah dan Meneladani Sifat-Sifat Utamanya', jp: 10, status: 'SELESAI', elemen: 'Akidah' },
+      { kode: 'TP 2.3', judul: 'Membiasakan Perilaku Jujur, Amanah, dan Menghindari Perilaku Tercela', jp: 10, status: 'DRAFT', elemen: 'Akhlak' },
+      { kode: 'TP 2.4', judul: 'Memahami Ketentuan Ibadah Puasa, Zakat, dan Sejarah Peradaban Islam Nusantara', jp: 12, status: 'DRAFT', elemen: 'Fikih & Sejarah Peradaban Islam' }
+    ],
+    moduls: [
+      { judul: 'Modul Ajar: Indahnya Toleransi & Moderasi Beragama', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Contextual Teaching & Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Meneladani Sifat Amanah & Kejujuran', tpKode: 'TP 2.3', pertemuan: '3 Pertemuan (10 JP)', model: 'Discovery Learning', status: 'Siap Cetak' }
+    ]
+  },
+  'PJOK': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik mempraktikkan variasi dan kombinasi keterampilan gerak spesifik dalam berbagai permainan olahraga, senam, dan aktivitas ritmik, merancang program latihan kebugaran jasmani personal, serta menerapkan pola hidup sehat dan keselamatan diri.',
+    tps: [
+      { kode: 'TP 2.1', judul: 'Mempraktikkan Variasi Gerak Spesifik Permainan Bola Besar dan Bola Kecil', jp: 12, status: 'SELESAI', elemen: 'Terampil Bergerak' },
+      { kode: 'TP 2.2', judul: 'Mempraktikkan Keterampilan Gerak Dasar Atletik (Lari, Lompat, Lempar)', jp: 10, status: 'SELESAI', elemen: 'Terampil Bergerak' },
+      { kode: 'TP 2.3', judul: 'Merancang dan Mengukur Latihan Kebugaran Jasmani Terkait Kesehatan', jp: 12, status: 'DRAFT', elemen: 'Belajar Melalui Gerak' },
+      { kode: 'TP 2.4', judul: 'Menerapkan Budaya Hidup Sehat, Gizi Seimbang, dan Pencegahan Cedera', jp: 8, status: 'DRAFT', elemen: 'Memilih Hidup yang Menyehatkan' }
+    ],
+    moduls: [
+      { judul: 'Modul Ajar: Teknik Dasar & Strategi Permainan Bola Basket/Voli', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Teaching Games for Understanding', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Tes & Pengukuran Kebugaran Jasmani Siswa', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (12 JP)', model: 'Practice Style', status: 'Siap Cetak' }
+    ]
+  },
+  'Ekonomi': {
+    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, peserta didik mampu memahami dan menganalisis permasalahan ekonomi nasional dan global, mengevaluasi kebijakan moneter dan fiskal, menyusun siklus akuntansi perusahaan jasa dan dagang sederhana, serta merancang strategi kewirausahaan.',
+    tps: [
+      { kode: 'TP 2.1', judul: 'Menganalisis Pendapatan Nasional, Pertumbuhan Ekonomi, dan Kesenjangan Distribusi', jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
+      { kode: 'TP 2.2', judul: 'Mengevaluasi Dampak Inflasi, Kebijakan Moneter Bank Sentral, dan Kebijakan Fiskal', jp: 12, status: 'SELESAI', elemen: 'Keterampilan Proses' },
+      { kode: 'TP 2.3', judul: 'Menganalisis Perdagangan Internasional, Neraca Pembayaran, dan Kurs Valuta Asing', jp: 10, status: 'DRAFT', elemen: 'Pemahaman Konsep' },
+      { kode: 'TP 2.4', judul: 'Menyusun Siklus Akuntansi Perusahaan Jasa dan Laporan Laba Rugi Sederhana', jp: 16, status: 'DRAFT', elemen: 'Keterampilan Proses' }
+    ],
+    moduls: [
+      { judul: 'Modul Ajar: Analisis Pendapatan Nasional & Pertumbuhan', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Case-Based Learning', status: 'Siap Cetak' },
+      { judul: 'Modul Ajar: Praktik Siklus Akuntansi Perusahaan Jasa', tpKode: 'TP 2.4', pertemuan: '4 Pertemuan (16 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
     ]
   }
 };
+
+const FASE_LIST = [
+  { label: 'Fase A (Kelas 1-2 SD)', defaultKelas: '1', mapels: ['Bahasa Indonesia', 'Matematika', 'Pendidikan Pancasila', 'PAI & Budi Pekerti', 'PJOK'] },
+  { label: 'Fase B (Kelas 3-4 SD)', defaultKelas: '4', mapels: ['IPAS (Ilmu Pengetahuan Alam dan Sosial)', 'Bahasa Indonesia', 'Matematika', 'Pendidikan Pancasila', 'Bahasa Inggris', 'PAI & Budi Pekerti', 'PJOK'] },
+  { label: 'Fase C (Kelas 5-6 SD)', defaultKelas: '5', mapels: ['Matematika', 'IPAS (Ilmu Pengetahuan Alam dan Sosial)', 'Bahasa Indonesia', 'Pendidikan Pancasila', 'Bahasa Inggris', 'PAI & Budi Pekerti', 'PJOK'] },
+  { label: 'Fase D (Kelas 7-9 SMP)', defaultKelas: '8', mapels: ['Bahasa Inggris', 'Bahasa Indonesia', 'Matematika', 'IPA (Ilmu Pengetahuan Alam)', 'IPS (Ilmu Pengetahuan Sosial)', 'Pendidikan Pancasila', 'Informatika', 'PAI & Budi Pekerti', 'PJOK'] },
+  { label: 'Fase E (Kelas 10 SMA/SMK)', defaultKelas: '10', mapels: ['Informatika', 'Bahasa Indonesia', 'Bahasa Inggris', 'Matematika', 'IPA (Ilmu Pengetahuan Alam)', 'IPS (Ilmu Pengetahuan Sosial)', 'Pendidikan Pancasila', 'PAI & Budi Pekerti', 'PJOK'] },
+  { label: 'Fase F (Kelas 11-12 SMA/SMK)', defaultKelas: '11', mapels: ['Ekonomi', 'Bahasa Inggris', 'Bahasa Indonesia', 'Matematika', 'Informatika', 'Pendidikan Pancasila', 'PAI & Budi Pekerti', 'PJOK'] }
+];
 
 const DEFAULT_STUDENTS = [
   { id: 1, nisn: '0123456701', nama: 'Ahmad Budi Santoso', jk: 'L', statusHadir: 'H', f1: 85, f2: 88, sumatif: 86 },
@@ -124,29 +196,119 @@ const DEFAULT_STUDENTS = [
 ];
 
 const createClassObject = (id, nama, fase, mapel, kelas, customStudents = null) => {
-  const tpl = CURRICULUM_TEMPLATES[fase] || CURRICULUM_TEMPLATES['Fase D (Kelas 7-9 SMP)'];
+  const bank = SUBJECT_BANK[mapel];
+  const cpText = bank
+    ? `[${fase}] ${bank.cp}`
+    : `Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025 pada ${fase}, peserta didik mampu memahami, menerapkan, dan menganalisis konsep-konsep esensial pada mata pelajaran ${mapel} secara kritis, kreatif, dan kontekstual sesuai perkembangan jenjang Kelas ${kelas}.`;
+
+  const tps = bank
+    ? bank.tps.map((t, idx) => ({ ...t, id: `tp-${id}-${idx + 1}` }))
+    : [
+        { id: `tp-${id}-1`, kode: 'TP 2.1', judul: `Memahami Konsep Dasar dan Ruang Lingkup ${mapel} Kelas ${kelas}`, jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
+        { id: `tp-${id}-2`, kode: 'TP 2.2', judul: `Menganalisis Penerapan Materi ${mapel} dalam Kehidupan Sehari-hari`, jp: 12, status: 'DRAFT', elemen: 'Keterampilan Proses' },
+        { id: `tp-${id}-3`, kode: 'TP 2.3', judul: `Menyusun Proyek dan Evaluasi Pembelajaran ${mapel}`, jp: 12, status: 'DRAFT', elemen: 'Aplikasi & Proyek' }
+      ];
+
+  const modulAjar = bank
+    ? bank.moduls.map((m, idx) => ({ ...m, id: `ma-${id}-${idx + 1}` }))
+    : [
+        { id: `ma-${id}-1`, judul: `Modul Ajar: Konsep & Aplikasi ${mapel} (Kelas ${kelas})`, tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' }
+      ];
+
+  const studentsList = customStudents && customStudents.length > 0 ? customStudents : JSON.parse(JSON.stringify(DEFAULT_STUDENTS));
+
   return {
     id,
     nama,
     fase,
-    mapel: mapel || tpl.defaultMapel,
+    mapel,
     kelas,
-    cpText: tpl.cp,
-    tps: JSON.parse(JSON.stringify(tpl.tps)),
-    modulAjar: JSON.parse(JSON.stringify(tpl.moduls)),
-    students: customStudents || JSON.parse(JSON.stringify(DEFAULT_STUDENTS)),
+    cpText,
+    tps,
+    modulAjar,
+    students: studentsList,
     journals: [
       {
         id: `j-${id}-1`,
-        tanggal: '2026-11-14',
+        tanggal: new Date().toISOString().split('T')[0],
         jamKe: '1-2',
-        tpKode: `${tpl.tps[0].kode} - ${tpl.tps[0].judul}`,
+        tpKode: `${tps[0].kode} - ${tps[0].judul}`,
         catatan: 'Siswa aktif mengikuti kegiatan inti dan diskusi kelompok.',
-        hadirCount: (customStudents || DEFAULT_STUDENTS).length,
+        hadirCount: studentsList.length,
         tidakHadirCount: 0
       }
     ]
   };
+};
+
+// --- PARSER EXCEL (.XLSX / .XLS / .CSV) DAPODIK & EMIS ---
+const loadSheetJSLibrary = () => {
+  return new Promise((resolve, reject) => {
+    if (window.XLSX) {
+      resolve(window.XLSX);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    script.onload = () => resolve(window.XLSX);
+    script.onerror = () => reject(new Error('Gagal memuat pembaca Excel'));
+    document.head.appendChild(script);
+  });
+};
+
+const extractStudentsFromRows = (rows) => {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+
+  // Cari baris header (mengandung kata "nama")
+  let headerIdx = -1;
+  let nameCol = -1;
+  let nisnCol = -1;
+  let jkCol = -1;
+
+  for (let i = 0; i < Math.min(rows.length, 15); i++) {
+    const row = rows[i];
+    if (!Array.isArray(row)) continue;
+    const lowerCells = row.map((c) => String(c || '').toLowerCase().trim());
+    const foundName = lowerCells.findIndex((c) => c === 'nama' || c.includes('nama peserta') || c.includes('nama siswa') || c.includes('nama lengkap'));
+    if (foundName !== -1) {
+      headerIdx = i;
+      nameCol = foundName;
+      nisnCol = lowerCells.findIndex((c) => c.includes('nisn') || c === 'nipd' || c === 'nis');
+      jkCol = lowerCells.findIndex((c) => c === 'jk' || c === 'l/p' || c.includes('jenis kelamin') || c.includes('gender'));
+      break;
+    }
+  }
+
+  // Fallback jika header tidak eksplisit ditemukan
+  const startRow = headerIdx !== -1 ? headerIdx + 1 : 1;
+  if (nameCol === -1) nameCol = 1;
+  if (nisnCol === -1) nisnCol = 2;
+  if (jkCol === -1) jkCol = 3;
+
+  const parsed = [];
+  for (let r = startRow; r < rows.length; r++) {
+    const row = rows[r];
+    if (!Array.isArray(row)) continue;
+    const rawName = String(row[nameCol] || '').trim();
+    if (!rawName || rawName.length < 2 || rawName.toLowerCase().includes('total') || rawName.toLowerCase().includes('jumlah')) {
+      continue;
+    }
+    const rawNisn = String(row[nisnCol] || '').replace(/[^0-9]/g, '').trim();
+    const rawJk = String(row[jkCol] || 'L').trim().toUpperCase();
+    const jk = rawJk.startsWith('P') || rawJk === 'PEREMPUAN' || rawJk === 'FEMALE' ? 'P' : 'L';
+
+    parsed.push({
+      id: parsed.length + 1,
+      nisn: rawNisn || `012345${String(parsed.length + 1).padStart(4, '0')}`,
+      nama: rawName,
+      jk,
+      statusHadir: 'H',
+      f1: 80,
+      f2: 80,
+      sumatif: 80
+    });
+  }
+  return parsed;
 };
 
 const INITIAL_STATE = {
@@ -165,7 +327,7 @@ const INITIAL_STATE = {
   ]
 };
 
-const STORAGE_KEY = 'eduadmin_full_v4';
+const STORAGE_KEY = 'eduadmin_saas_master_v5';
 
 export default function App() {
   const [data, setData] = useState(() => {
@@ -190,8 +352,9 @@ export default function App() {
     mapel: 'Bahasa Inggris'
   });
   const [importFormat, setImportFormat] = useState(null); // null | 'dapodik' | 'emis'
-  const [uploadedFile, setUploadedFile] = useState(null); // Awal kosong, TANPA file contoh
+  const [uploadedFile, setUploadedFile] = useState(null); // Kosong di awal (tanpa file contoh)
   const [parsedStudents, setParsedStudents] = useState(null);
+  const [isParsingFile, setIsParsingFile] = useState(false);
   const fileInputRef = useRef(null);
 
   // --- STATE DASHBOARD ---
@@ -243,7 +406,7 @@ export default function App() {
 
   const showNotification = (msg) => {
     setToast(msg);
-    setTimeout(() => setToast(null), 3000);
+    setTimeout(() => setToast(null), 3200);
   };
 
   // --- HANDLER LOGIN ---
@@ -252,7 +415,7 @@ export default function App() {
     setData((prev) => ({ ...prev, isLoggedIn: true }));
   };
 
-  // --- HANDLER WIZARD IMPOR DAPODIK & EMIS ---
+  // --- HANDLER WIZARD IMPOR DAPODIK & EMIS (.XLSX / .XLS / .CSV) ---
   const handleSelectFormat = (format) => {
     setImportFormat(format);
     if (fileInputRef.current) {
@@ -261,43 +424,40 @@ export default function App() {
     }
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const formatLabel = importFormat === 'emis' ? 'Emis Kemenag' : 'Dapodik Kemendikdasmen';
-    setUploadedFile({
-      name: file.name,
-      size: `${(file.size / 1024).toFixed(1)} KB`,
-      format: formatLabel
-    });
+    const activeFmt = importFormat || 'dapodik';
+    const formatLabel = activeFmt === 'emis' ? 'Format Emis' : 'Format Dapodik';
+    setIsParsingFile(true);
 
-    // Jika file CSV diunggah, coba baca nama siswa baris demi baris
-    if (file.name.toLowerCase().endsWith('.csv')) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const text = ev.target?.result || '';
-        const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
-        if (lines.length > 1) {
-          const imported = lines.slice(1).map((line, idx) => {
-            const cols = line.split(/[,;]/);
-            return {
-              id: idx + 1,
-              nisn: (cols[1] || `01234567${idx + 1}`).replace(/"/g, '').trim(),
-              nama: (cols[0] || `Siswa ${idx + 1}`).replace(/"/g, '').trim(),
-              jk: (cols[2] || 'L').replace(/"/g, '').trim().toUpperCase().startsWith('P') ? 'P' : 'L',
-              statusHadir: 'H',
-              f1: 80,
-              f2: 80,
-              sumatif: 80
-            };
-          });
-          setParsedStudents(imported);
-        }
-      };
-      reader.readAsText(file);
-    } else {
+    try {
+      const XLSX = await loadSheetJSLibrary();
+      const buffer = await file.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type: 'array' });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+      const studentsExtracted = extractStudentsFromRows(rows);
+
+      setParsedStudents(studentsExtracted.length > 0 ? studentsExtracted : null);
+      setUploadedFile({
+        name: file.name,
+        size: `${(file.size / 1024).toFixed(1)} KB`,
+        format: formatLabel,
+        count: studentsExtracted.length
+      });
+    } catch (err) {
+      console.error('Error membaca file:', err);
       setParsedStudents(null);
+      setUploadedFile({
+        name: file.name,
+        size: `${(file.size / 1024).toFixed(1)} KB`,
+        format: formatLabel,
+        count: 0
+      });
+    } finally {
+      setIsParsingFile(false);
     }
   };
 
@@ -320,8 +480,8 @@ export default function App() {
         activeClassId: newId,
         classes: [created]
       }));
-      showNotification(`Administrasi ${namaKelas} (${wizForm.fase}) siap digunakan!`);
-    }, 900);
+      showNotification(`Perangkat ${namaKelas} (${wizForm.fase}) berhasil disiapkan!`);
+    }, 800);
   };
 
   // --- HELPER DASHBOARD ---
@@ -425,24 +585,6 @@ export default function App() {
     }));
   };
 
-  const handleFaseChangeRombel = (selectedFase) => {
-    const tpl = CURRICULUM_TEMPLATES[selectedFase];
-    const defaultKelasMap = {
-      'Fase A (Kelas 1-2 SD)': '1',
-      'Fase B (Kelas 3-4 SD)': '4',
-      'Fase C (Kelas 5-6 SD)': '5',
-      'Fase D (Kelas 7-9 SMP)': '7',
-      'Fase E (Kelas 10 SMA/SMK)': '10',
-      'Fase F (Kelas 11-12 SMA/SMK)': '11'
-    };
-    setRombelForm({
-      ...rombelForm,
-      fase: selectedFase,
-      kelas: defaultKelasMap[selectedFase] || '7',
-      mapel: tpl ? tpl.defaultMapel : 'Mata Pelajaran'
-    });
-  };
-
   const handleAddRombel = (e) => {
     e.preventDefault();
     const namaLengkap = `Kelas ${rombelForm.kelas} ${rombelForm.rombel} - ${rombelForm.mapel}`;
@@ -474,7 +616,7 @@ export default function App() {
       <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4 font-sans">
         <div className="bg-white rounded-3xl shadow-xl max-w-md w-full overflow-hidden border border-slate-200/80">
           <div className="bg-blue-600 p-8 text-center text-white">
-            <div className="w-14 h-14 bg-white/15 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-xs">
+            <div className="w-14 h-14 bg-white/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-2xl font-bold tracking-tight">EduAdmin SaaS</h1>
@@ -513,6 +655,18 @@ export default function App() {
             >
               Masuk ke Aplikasi
             </button>
+
+            <div className="text-center pt-2 text-xs text-slate-500">
+              Belum memiliki lisensi?{' '}
+              <a
+                href={LYNK_ID_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-blue-600 hover:underline inline-flex items-center gap-1"
+              >
+                Beli Akses di Lynk.id <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           </form>
         </div>
       </div>
@@ -523,10 +677,11 @@ export default function App() {
   // TAMPILAN 2: WIZARD 3 LANGKAH (DATA KELAS -> IMPOR DAPODIK/EMIS -> PROSES)
   // ============================================================================
   if (!data.wizardCompleted) {
+    const selectedFaseObj = FASE_LIST.find((f) => f.label === wizForm.fase) || FASE_LIST[3];
+
     return (
       <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4 font-sans">
         <div className="bg-white rounded-3xl shadow-xl max-w-2xl w-full overflow-hidden border border-slate-200">
-          {/* Header Wizard */}
           <div className="px-8 py-5 border-b border-slate-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center">
@@ -539,7 +694,6 @@ export default function App() {
             </span>
           </div>
 
-          {/* Stepper 1 - 2 - 3 */}
           <div className="px-8 py-5 bg-slate-50/70 border-b border-slate-100 flex items-center justify-around">
             {[
               { num: 1, label: 'Data Kelas' },
@@ -563,13 +717,13 @@ export default function App() {
             ))}
           </div>
 
-          {/* LANGKAH 1: DATA KELAS & JENJANG (SEMUA TINGKATAN) */}
+          {/* LANGKAH 1: PILIH JENJANG, KELAS, & MATA PELAJARAN */}
           {wizardStep === 1 && (
             <div className="p-8 space-y-5">
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Pengaturan Kelas & Jenjang</h2>
+                <h2 className="text-xl font-bold text-slate-900">Pengaturan Kelas & Mata Pelajaran</h2>
                 <p className="text-sm text-slate-500 mt-1">
-                  Pilih fase kurikulum dan mata pelajaran agar CP, TP, dan Modul Ajar otomatis disesuaikan.
+                  Pilih jenjang dan mata pelajaran Anda. Perangkat CP, ATP, Prota/Promes, dan Modul Ajar otomatis tersedia.
                 </p>
               </div>
 
@@ -579,34 +733,25 @@ export default function App() {
                   <select
                     value={wizForm.fase}
                     onChange={(e) => {
-                      const f = e.target.value;
-                      const tpl = CURRICULUM_TEMPLATES[f];
-                      const klsDefault = {
-                        'Fase A (Kelas 1-2 SD)': '1',
-                        'Fase B (Kelas 3-4 SD)': '4',
-                        'Fase C (Kelas 5-6 SD)': '5',
-                        'Fase D (Kelas 7-9 SMP)': '8',
-                        'Fase E (Kelas 10 SMA/SMK)': '10',
-                        'Fase F (Kelas 11-12 SMA/SMK)': '11'
-                      }[f];
+                      const found = FASE_LIST.find((f) => f.label === e.target.value) || FASE_LIST[3];
                       setWizForm({
                         ...wizForm,
-                        fase: f,
-                        kelas: klsDefault || '8',
-                        mapel: tpl ? tpl.defaultMapel : 'Bahasa Inggris'
+                        fase: found.label,
+                        kelas: found.defaultKelas,
+                        mapel: found.mapels[0]
                       });
                     }}
                     className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm bg-white"
                   >
-                    {Object.keys(CURRICULUM_TEMPLATES).map((f) => (
-                      <option key={f} value={f}>
-                        {f}
+                    {FASE_LIST.map((f) => (
+                      <option key={f.label} value={f.label}>
+                        {f.label}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">Tingkat Kelas</label>
                     <select
@@ -627,19 +772,25 @@ export default function App() {
                       type="text"
                       value={wizForm.rombel}
                       onChange={(e) => setWizForm({ ...wizForm, rombel: e.target.value })}
-                      placeholder="Mis. A / B / IPA-1"
+                      placeholder="Contoh: A / B / IPA-1"
                       className="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm"
                     />
                   </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">Mata Pelajaran</label>
-                    <input
-                      type="text"
-                      value={wizForm.mapel}
-                      onChange={(e) => setWizForm({ ...wizForm, mapel: e.target.value })}
-                      className="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm"
-                    />
-                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Mata Pelajaran</label>
+                  <select
+                    value={wizForm.mapel}
+                    onChange={(e) => setWizForm({ ...wizForm, mapel: e.target.value })}
+                    className="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm bg-white"
+                  >
+                    {selectedFaseObj.mapels.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
@@ -665,7 +816,6 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Input File Tersembunyi untuk Unggah File Asli */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -674,7 +824,6 @@ export default function App() {
                 className="hidden"
               />
 
-              {/* Tombol Format Dapodik & Format Emis (Keduanya Bisa Diklik) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <button
                   type="button"
@@ -703,8 +852,11 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Area Status File (Awal kosong, muncul hanya setelah user mengunggah file) */}
-              {uploadedFile ? (
+              {isParsingFile ? (
+                <div className="p-6 rounded-xl border border-blue-200 bg-blue-50/50 text-center text-sm text-blue-700 font-medium">
+                  Membaca data peserta didik dari file Excel...
+                </div>
+              ) : uploadedFile ? (
                 <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
@@ -714,7 +866,7 @@ export default function App() {
                       <div className="text-sm font-bold text-slate-800">{uploadedFile.name}</div>
                       <div className="text-xs text-emerald-700 font-medium">
                         Berhasil diunggah ({uploadedFile.format}) • Ukuran {uploadedFile.size}
-                        {parsedStudents ? ` • ${parsedStudents.length} Siswa terbaca` : ''}
+                        {uploadedFile.count > 0 ? ` • ${uploadedFile.count} Siswa terbaca` : ''}
                       </div>
                     </div>
                   </div>
@@ -746,10 +898,10 @@ export default function App() {
                 >
                   <Upload className="w-6 h-6 text-slate-400 mx-auto mb-2" />
                   <p className="text-sm font-semibold text-slate-700">
-                    Pilih tombol Format Dapodik atau Format Emis di atas untuk mengunggah file siswa
+                    Klik tombol Format Dapodik atau Format Emis di atas untuk memilih file dari laptop/HP
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
-                    Mendukung file unduhan asli .xlsx, .xls, atau .csv (atau langsung klik Proses Administrasi)
+                    Mendukung file unduhan asli .xlsx, .xls, atau .csv
                   </p>
                 </div>
               )}
@@ -779,7 +931,7 @@ export default function App() {
               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
               <h3 className="text-lg font-bold text-slate-900">Menyiapkan Perangkat Administrasi...</h3>
               <p className="text-sm text-slate-500">
-                Menyusun CP, ATP, Modul Ajar, dan Daftar Siswa untuk Kelas {wizForm.kelas} ({wizForm.fase})
+                Menyusun CP, ATP, Modul Ajar, dan Daftar Siswa untuk {wizForm.mapel} Kelas {wizForm.kelas} ({wizForm.fase})
               </p>
             </div>
           )}
@@ -803,6 +955,7 @@ export default function App() {
   ];
 
   const totalJp = activeClass.tps.reduce((acc, item) => acc + (Number(item.jp) || 0), 0);
+  const selectedRombelFaseObj = FASE_LIST.find((f) => f.label === rombelForm.fase) || FASE_LIST[3];
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans text-slate-800">
@@ -912,6 +1065,8 @@ export default function App() {
           <button
             onClick={() => {
               setWizardStep(1);
+              setUploadedFile(null);
+              setParsedStudents(null);
               setData((prev) => ({ ...prev, wizardCompleted: false }));
             }}
             className="w-full py-2 px-3 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-1.5"
@@ -1680,7 +1835,7 @@ export default function App() {
         </div>
       )}
 
-      {/* MODAL TAMBAH ROMBEL SEMUA TINGKATAN */}
+      {/* MODAL TAMBAH ROMBEL SEMUA TINGKATAN & MAPEL */}
       {showAddRombel && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
           <form onSubmit={handleAddRombel} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4">
@@ -1694,12 +1849,20 @@ export default function App() {
               <label className="block text-xs font-semibold text-slate-600 mb-1">Pilih Jenjang / Fase Kurikulum</label>
               <select
                 value={rombelForm.fase}
-                onChange={(e) => handleFaseChangeRombel(e.target.value)}
+                onChange={(e) => {
+                  const found = FASE_LIST.find((f) => f.label === e.target.value) || FASE_LIST[3];
+                  setRombelForm({
+                    ...rombelForm,
+                    fase: found.label,
+                    kelas: found.defaultKelas,
+                    mapel: found.mapels[0]
+                  });
+                }}
                 className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm bg-white"
               >
-                {Object.keys(CURRICULUM_TEMPLATES).map((faseKey) => (
-                  <option key={faseKey} value={faseKey}>
-                    {faseKey}
+                {FASE_LIST.map((f) => (
+                  <option key={f.label} value={f.label}>
+                    {f.label}
                   </option>
                 ))}
               </select>
@@ -1733,13 +1896,17 @@ export default function App() {
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">Mata Pelajaran</label>
-              <input
-                type="text"
+              <select
                 value={rombelForm.mapel}
                 onChange={(e) => setRombelForm({ ...rombelForm, mapel: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm"
-                required
-              />
+                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm bg-white"
+              >
+                {selectedRombelFaseObj.mapels.map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button
