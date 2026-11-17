@@ -21,155 +21,113 @@ import {
   X
 } from 'lucide-react';
 
-// --- BANK DATA KURIKULUM MERDEKA SEMUA JENJANG & FASE ---
-const CURRICULUM_TEMPLATES = {
-  'Fase A (Kelas 1-2 SD)': {
-    defaultMapel: 'Bahasa Indonesia',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase A, peserta didik memiliki kemampuan berbahasa untuk berkomunikasi dan bernalar sesuai dengan tujuan kepada teman sebaya dan orang dewasa di sekitar tentang diri dan lingkungannya. Peserta didik mampu memahami dan menyampaikan pesan secara lisan, membaca dan mengeja kata-kata sederhana dengan fasih, serta menulis kalimat pendek dengan ejaan yang tepat.',
-    tps: [
-      { id: 'tp-a1', kode: 'TP 1.1', judul: 'Mengenal Huruf, Suku Kata, dan Membaca Nyaring Kata Sederhana Sehari-hari', jp: 16, status: 'SELESAI', elemen: 'Membaca dan Memirsa' },
-      { id: 'tp-a2', kode: 'TP 1.2', judul: 'Menyimak Cerita Pendek dan Menceritakan Kembali Isi Cerita dengan Bahasa Sendiri', jp: 14, status: 'SELESAI', elemen: 'Menyimak' },
-      { id: 'tp-a3', kode: 'TP 1.3', judul: 'Menulis Kalimat Sederhana Tentang Diri Sendiri dan Anggota Keluarga', jp: 16, status: 'DRAFT', elemen: 'Menulis' },
-      { id: 'tp-a4', kode: 'TP 1.4', judul: 'Menggunakan Ungkapan Santun (Terima Kasih, Maaf, Tolong) dalam Percakapan', jp: 10, status: 'DRAFT', elemen: 'Berbicara dan Mempresentasikan' }
-    ],
-    moduls: [
-      { id: 'ma-a1', judul: 'Modul Ajar: Aku dan Keluargaku (Membaca Permulaan)', tpKode: 'TP 1.1', pertemuan: '4 Pertemuan (16 JP)', model: 'Pembelajaran Bermain & Literasi Dasar', status: 'Siap Cetak' },
-      { id: 'ma-a2', judul: 'Modul Ajar: Dongeng Hewan & Pesan Baik', tpKode: 'TP 1.2', pertemuan: '3 Pertemuan (14 JP)', model: 'Storytelling & Diskusi Kelompok', status: 'Siap Cetak' }
-    ]
-  },
-  'Fase B (Kelas 3-4 SD)': {
-    defaultMapel: 'IPAS (Ilmu Pengetahuan Alam dan Sosial)',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase B, peserta didik mengidentifikasi keterkaitan antara pengetahuan yang baru saja diperoleh serta mencari tahu bagaimana konsep-konsep Ilmu Pengetahuan Alam dan Sosial berkaitan satu sama lain yang ada di lingkungan sekitar dalam kehidupan sehari-hari melalui pengamatan dan percobaan sederhana.',
-    tps: [
-      { id: 'tp-b1', kode: 'TP 2.1', judul: 'Menganalisis Bagian Tubuh Tumbuhan dan Fungsinya bagi Kehidupan Manusia', jp: 12, status: 'SELESAI', elemen: 'Pemahaman IPAS' },
-      { id: 'tp-b2', kode: 'TP 2.2', judul: 'Mengidentifikasi Wujud Zat dan Perubahan Wujud Benda di Lingkungan Sekitar', jp: 14, status: 'SELESAI', elemen: 'Keterampilan Proses' },
-      { id: 'tp-b3', kode: 'TP 2.3', judul: 'Mengenal Keragaman Budaya, Kearifan Lokal, dan Bentang Alam Daerah Setempat', jp: 12, status: 'DRAFT', elemen: 'Pemahaman IPAS' },
-      { id: 'tp-b4', kode: 'TP 2.4', judul: 'Memahami Gaya di Sekitar Kita dan Pengaruhnya Terhadap Gerak Benda', jp: 10, status: 'DRAFT', elemen: 'Keterampilan Proses' }
-    ],
-    moduls: [
-      { id: 'ma-b1', judul: 'Modul Ajar: Tumbuhan Sumber Kehidupan di Bumi', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Inquiry-Based Learning', status: 'Siap Cetak' },
-      { id: 'ma-b2', judul: 'Modul Ajar: Eksperimen Perubahan Wujud Zat', tpKode: 'TP 2.2', pertemuan: '4 Pertemuan (14 JP)', model: 'Experimental Learning', status: 'Siap Cetak' }
-    ]
-  },
-  'Fase C (Kelas 5-6 SD)': {
-    defaultMapel: 'Matematika',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase C, peserta didik dapat menunjukkan pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 1.000.000, melakukan operasi hitung pecahan dan desimal, menghitung luas dan volume bangun ruang sederhana, serta menganalisis data penyajian tabel dan diagram batang.',
-    tps: [
-      { id: 'tp-c1', kode: 'TP 2.1', judul: 'Melakukan Operasi Penjumlahan, Pengurangan, Perkalian, dan Pembagian Pecahan', jp: 15, status: 'SELESAI', elemen: 'Bilangan' },
-      { id: 'tp-c2', kode: 'TP 2.2', judul: 'Menghitung Volume dan Luas Permukaan Bangun Ruang Kubus dan Balok', jp: 15, status: 'SELESAI', elemen: 'Pengukuran & Geometri' },
-      { id: 'tp-c3', kode: 'TP 2.3', judul: 'Menyelesaikan Masalah Sehari-hari yang Berkaitan dengan Rasio dan Skala Peta', jp: 12, status: 'DRAFT', elemen: 'Aljabar & Rasio' },
-      { id: 'tp-c4', kode: 'TP 2.4', judul: 'Mengumpulkan, Membaca, dan Menafsirkan Data dalam Diagram Batang dan Garis', jp: 10, status: 'DRAFT', elemen: 'Analisis Data dan Peluang' }
-    ],
-    moduls: [
-      { id: 'ma-c1', judul: 'Modul Ajar: Operasi Hitung Pecahan dalam Kehidupan', tpKode: 'TP 2.1', pertemuan: '5 Pertemuan (15 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
-      { id: 'ma-c2', judul: 'Modul Ajar: Bangun Ruang Kubus dan Balok', tpKode: 'TP 2.2', pertemuan: '5 Pertemuan (15 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
-    ]
-  },
-  'Fase D (Kelas 7-9 SMP)': {
-    defaultMapel: 'Bahasa Inggris',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase D, peserta didik menggunakan teks lisan, tulisan, dan visual dalam bahasa Inggris untuk berinteraksi dan berkomunikasi dalam konteks yang lebih beragam serta dalam situasi formal dan informal. Peserta didik dapat memahami ide utama dan detail relevan dari berbagai jenis teks (recount, narrative, descriptive, dan procedure) serta menyusun teks terstruktur.',
-    tps: [
-      { id: 'tp-d1', kode: 'TP 2.1', judul: 'Memahami Struktur dan Unsur Kebahasaan Recount Text (Pengalaman Pribadi)', jp: 12, status: 'SELESAI', elemen: 'Membaca - Memirsa' },
-      { id: 'tp-d2', kode: 'TP 2.2', judul: 'Menyusun dan Menceritakan Pengalaman Masa Lampau Menggunakan Simple Past Tense', jp: 10, status: 'SELESAI', elemen: 'Menulis - Mempresentasikan' },
-      { id: 'tp-d3', kode: 'TP 2.3', judul: 'Menganalisis Nilai Moral dan Alur Cerita pada Narrative Text (Fable & Folktale)', jp: 14, status: 'DRAFT', elemen: 'Menyimak - Berbicara' },
-      { id: 'tp-d4', kode: 'TP 2.4', judul: 'Membuat Pesan Singkat, Pengumuman (Announcement), dan Pemberitahuan (Notice)', jp: 8, status: 'DRAFT', elemen: 'Menulis - Mempresentasikan' }
-    ],
-    moduls: [
-      { id: 'ma-d1', judul: 'Modul Ajar: My Unforgettable Holiday (Recount Text)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Genre-Based Approach (GBA)', status: 'Siap Cetak' },
-      { id: 'ma-d2', judul: 'Modul Ajar: Telling Past Events with Simple Past Tense', tpKode: 'TP 2.2', pertemuan: '3 Pertemuan (10 JP)', model: 'Discovery Learning', status: 'Siap Cetak' },
-      { id: 'ma-d3', judul: 'Modul Ajar: Indonesian Folktales & Moral Values', tpKode: 'TP 2.3', pertemuan: '4 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Perlu Review' }
-    ]
-  },
-  'Fase E (Kelas 10 SMA/SMK)': {
-    defaultMapel: 'Informatika',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase E, peserta didik mampu memahami peran sistem operasi dan mekanisme internal yang terjadi pada interaksi antara perangkat keras, perangkat lunak, dan pengguna, menerapkan berpikir komputasional untuk menyelesaikan persoalan kompleks, serta merancang algoritma pemrograman terstruktur.',
-    tps: [
-      { id: 'tp-e1', kode: 'TP 2.1', judul: 'Menerapkan Strategi Algoritmik Standar (Searching & Sorting) pada Pemecahan Masalah', jp: 12, status: 'SELESAI', elemen: 'Berpikir Komputasional' },
-      { id: 'tp-e2', kode: 'TP 2.2', judul: 'Menganalisis Jaringan Komputer Lokal, Internet, dan Keamanan Data Digital', jp: 10, status: 'SELESAI', elemen: 'Jaringan Komputer & Internet' },
-      { id: 'tp-e3', kode: 'TP 2.3', judul: 'Melakukan Pengolahan, Visualisasi, dan Analisis Data Menggunakan Lembar Kerja', jp: 12, status: 'DRAFT', elemen: 'Analisis Data' },
-      { id: 'tp-e4', kode: 'TP 2.4', judul: 'Mengembangkan Program Sederhana Menggunakan Bahasa Pemrograman Prosedural', jp: 14, status: 'DRAFT', elemen: 'Algoritma dan Pemrograman' }
-    ],
-    moduls: [
-      { id: 'ma-e1', judul: 'Modul Ajar: Berpikir Komputasional (Searching & Sorting)', tpKode: 'TP 2.1', pertemuan: '4 Pertemuan (12 JP)', model: 'Problem-Based Learning (PBL)', status: 'Siap Cetak' },
-      { id: 'ma-e2', judul: 'Modul Ajar: Algoritma Pemrograman Dasar', tpKode: 'TP 2.4', pertemuan: '5 Pertemuan (14 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
-    ]
-  },
-  'Fase F (Kelas 11-12 SMA/SMK)': {
-    defaultMapel: 'Ekonomi / Lintas Minat',
-    cp: 'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase F, peserta didik mampu memahami dan menganalisis berbagai permasalahan ekonomi di tingkat nasional dan global, mengevaluasi kebijakan moneter dan fiskal, menyusun laporan keuangan perusahaan jasa dan dagang sederhana, serta merancang strategi kewirausahaan berkelanjutan.',
-    tps: [
-      { id: 'tp-f1', kode: 'TP 2.1', judul: 'Menganalisis Pendapatan Nasional, Pertumbuhan Ekonomi, dan Kesenjangan Distribusi', jp: 12, status: 'SELESAI', elemen: 'Pemahaman Konsep' },
-      { id: 'tp-f2', kode: 'TP 2.2', judul: 'Mengevaluasi Dampak Inflasi, Kebijakan Moneter Bank Sentral, dan Kebijakan Fiskal', jp: 12, status: 'SELESAI', elemen: 'Keterampilan Proses' },
-      { id: 'tp-f3', kode: 'TP 2.3', judul: 'Menganalisis Perdagangan Internasional, Neraca Pembayaran, dan Kurs Valuta Asing', jp: 10, status: 'DRAFT', elemen: 'Pemahaman Konsep' },
-      { id: 'tp-f4', kode: 'TP 2.4', judul: 'Menyusun Siklus Akuntansi Perusahaan Jasa dan Laporan Laba Rugi Sederhana', jp: 16, status: 'DRAFT', elemen: 'Keterampilan Proses' }
-    ],
-    moduls: [
-      { id: 'ma-f1', judul: 'Modul Ajar: Analisis Pendapatan Nasional & Pertumbuhan', tpKode: 'TP 2.1', pertemuan: '3 Pertemuan (12 JP)', model: 'Case-Based Learning', status: 'Siap Cetak' },
-      { id: 'ma-f2', judul: 'Modul Ajar: Praktik Siklus Akuntansi Perusahaan Jasa', tpKode: 'TP 2.4', pertemuan: '4 Pertemuan (16 JP)', model: 'Project-Based Learning (PjBL)', status: 'Siap Cetak' }
-    ]
-  }
-};
-
-const DEFAULT_STUDENTS = [
-  { id: 1, nisn: '0123456701', nama: 'Ahmad Budi Santoso', jk: 'L', statusHadir: 'H', f1: 85, f2: 88, sumatif: 86 },
-  { id: 2, nisn: '0123456702', nama: 'Citra Lestari', jk: 'P', statusHadir: 'H', f1: 92, f2: 90, sumatif: 94 },
-  { id: 3, nisn: '0123456703', nama: 'Dian Wardhana', jk: 'L', statusHadir: 'S', f1: 78, f2: 80, sumatif: 79 },
-  { id: 4, nisn: '0123456704', nama: 'Eka Putri Setiawati', jk: 'P', statusHadir: 'H', f1: 88, f2: 91, sumatif: 89 },
-  { id: 5, nisn: '0123456705', nama: 'Fajar Nugroho', jk: 'L', statusHadir: 'A', f1: 72, f2: 75, sumatif: 74 },
-  { id: 6, nisn: '0123456706', nama: 'Gita Permata Sari', jk: 'P', statusHadir: 'H', f1: 90, f2: 89, sumatif: 92 }
-];
-
-const createClassObject = (id, nama, fase, mapel, kelas) => {
-  const tpl = CURRICULUM_TEMPLATES[fase] || CURRICULUM_TEMPLATES['Fase D (Kelas 7-9 SMP)'];
-  return {
-    id,
-    nama,
-    fase,
-    mapel: mapel || tpl.defaultMapel,
-    kelas,
-    cpText: tpl.cp,
-    tps: JSON.parse(JSON.stringify(tpl.tps)),
-    modulAjar: JSON.parse(JSON.stringify(tpl.moduls)),
-    students: JSON.parse(JSON.stringify(DEFAULT_STUDENTS)),
-    journals: [
-      {
-        id: `j-${id}-1`,
-        tanggal: '2026-11-14',
-        jamKe: '1-2',
-        tpKode: `${tpl.tps[0].kode} - ${tpl.tps[0].judul}`,
-        catatan: 'Siswa aktif mengikuti kegiatan inti dan diskusi kelompok.',
-        hadirCount: 5,
-        tidakHadirCount: 1
-      }
-    ]
-  };
-};
-
-const INITIAL_STATE = {
+// --- DATA BAWAAN KURIKULUM MERDEKA (BAHASA INGGRIS KELAS 8 FASE D - SEMESTER GENAP) ---
+const DEFAULT_DATA = {
   profile: {
     nama: 'Budi Santoso, S.Pd',
     nip: '19850212 201001 1 015',
-    sekolah: 'Sekolah Nusantara Merdeka',
+    sekolah: 'SMP Negeri 1 Nusantara',
     tahunAjaran: '2026/2027',
     semester: 'Smt Genap'
   },
-  activeClassId: 'cls-smp-8b',
+  activeClassId: '8b-ing',
   classes: [
-    createClassObject('cls-smp-8b', 'Kelas 8 B - Bahasa Inggris', 'Fase D (Kelas 7-9 SMP)', 'Bahasa Inggris', '8'),
-    createClassObject('cls-sd-4a', 'Kelas 4 A - IPAS', 'Fase B (Kelas 3-4 SD)', 'IPAS', '4'),
-    createClassObject('cls-sma-10a', 'Kelas 10 A - Informatika', 'Fase E (Kelas 10 SMA/SMK)', 'Informatika', '10')
+    { id: '8b-ing', nama: 'Kelas 8 B - Bahasa Inggris', fase: 'Fase D', mapel: 'Bahasa Inggris', kelas: '8' },
+    { id: '8a-ing', nama: 'Kelas 8 A - Bahasa Inggris', fase: 'Fase D', mapel: 'Bahasa Inggris', kelas: '8' }
+  ],
+  cpText:
+    'Berdasarkan Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025, pada akhir Fase D, peserta didik menggunakan teks lisan, tulisan, dan visual dalam bahasa Inggris untuk berinteraksi dan berkomunikasi dalam konteks yang lebih beragam serta dalam situasi formal dan informal. Peserta didik dapat memahami ide utama dan detail relevan dari berbagai jenis teks (recount, narrative, descriptive, dan short functional text) serta menyusun teks terstruktur dengan kosakata dan tata bahasa yang tepat.',
+  tps: [
+    {
+      id: 'tp-1',
+      kode: 'TP 2.1',
+      judul: 'Memahami Struktur dan Unsur Kebahasaan Recount Text (Pengalaman Pribadi)',
+      jp: 12,
+      status: 'SELESAI',
+      elemen: 'Membaca - Memirsa'
+    },
+    {
+      id: 'tp-2',
+      kode: 'TP 2.2',
+      judul: 'Menyusun dan Menceritakan Pengalaman Masa Lampau Menggunakan Simple Past Tense',
+      jp: 10,
+      status: 'SELESAI',
+      elemen: 'Menulis - Mempresentasikan'
+    },
+    {
+      id: 'tp-3',
+      kode: 'TP 2.3',
+      judul: 'Menganalisis Nilai Moral dan Alur Cerita pada Narrative Text (Fable & Folktale)',
+      jp: 14,
+      status: 'DRAFT',
+      elemen: 'Menyimak - Berbicara'
+    },
+    {
+      id: 'tp-4',
+      kode: 'TP 2.4',
+      judul: 'Membuat Pesan Singkat, Pengumuman (Announcement), dan Pemberitahuan (Notice)',
+      jp: 8,
+      status: 'DRAFT',
+      elemen: 'Menulis - Mempresentasikan'
+    }
+  ],
+  modulAjar: [
+    {
+      id: 'ma-1',
+      judul: 'Modul Ajar: My Unforgettable Holiday (Recount Text)',
+      tpKode: 'TP 2.1',
+      pertemuan: '4 Pertemuan (12 JP)',
+      model: 'Genre-Based Approach (GBA)',
+      status: 'Siap Cetak'
+    },
+    {
+      id: 'ma-2',
+      judul: 'Modul Ajar: Telling Past Events with Simple Past Tense',
+      tpKode: 'TP 2.2',
+      pertemuan: '3 Pertemuan (10 JP)',
+      model: 'Discovery Learning',
+      status: 'Siap Cetak'
+    },
+    {
+      id: 'ma-3',
+      judul: 'Modul Ajar: Indonesian Folktales & Moral Values (Narrative)',
+      tpKode: 'TP 2.3',
+      pertemuan: '4 Pertemuan (14 JP)',
+      model: 'Project-Based Learning (PjBL)',
+      status: 'Perlu Review'
+    }
+  ],
+  students: [
+    { id: 1, nisn: '0123456701', nama: 'Ahmad Budi Santoso', jk: 'L', statusHadir: 'H', f1: 85, f2: 88, sumatif: 86 },
+    { id: 2, nisn: '0123456702', nama: 'Citra Lestari', jk: 'P', statusHadir: 'H', f1: 92, f2: 90, sumatif: 94 },
+    { id: 3, nisn: '0123456703', nama: 'Dian Wardhana', jk: 'L', statusHadir: 'S', f1: 78, f2: 80, sumatif: 79 },
+    { id: 4, nisn: '0123456704', nama: 'Eka Putri Setiawati', jk: 'P', statusHadir: 'H', f1: 88, f2: 91, sumatif: 89 },
+    { id: 5, nisn: '0123456705', nama: 'Fajar Nugroho', jk: 'L', statusHadir: 'A', f1: 72, f2: 75, sumatif: 74 },
+    { id: 6, nisn: '0123456706', nama: 'Gita Permata Sari', jk: 'P', statusHadir: 'H', f1: 90, f2: 89, sumatif: 92 }
+  ],
+  journals: [
+    {
+      id: 'j-1',
+      tanggal: '2026-11-14',
+      jamKe: '1-2',
+      tpKode: 'TP 2.1 - Memahami Struktur dan Unsur Kebahasaan Recount Text',
+      catatan: 'Siswa antusias mengidentifikasi verb-2 dari teks bacaan liburan.',
+      hadirCount: 5,
+      tidakHadirCount: 1
+    }
   ]
 };
 
-const STORAGE_KEY = 'eduadmin_multijenjang_v3';
+const STORAGE_KEY = 'eduadmin_saas_data_v2';
 
 export default function App() {
+  // Load state dari localStorage atau gunakan DEFAULT_DATA
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : INITIAL_STATE;
+      return saved ? JSON.parse(saved) : DEFAULT_DATA;
     } catch {
-      return INITIAL_STATE;
+      return DEFAULT_DATA;
     }
   });
 
@@ -179,48 +137,32 @@ export default function App() {
   // State Modal / Form
   const [editingTp, setEditingTp] = useState(null);
   const [showAddTp, setShowAddTp] = useState(false);
-  const [newTp, setNewTp] = useState({ kode: '', judul: '', jp: 8, status: 'DRAFT', elemen: 'Pemahaman Konsep' });
+  const [newTp, setNewTp] = useState({ kode: '', judul: '', jp: 8, status: 'DRAFT', elemen: 'Membaca - Memirsa' });
 
   const [showAddRombel, setShowAddRombel] = useState(false);
-  const [rombelForm, setRombelForm] = useState({
-    fase: 'Fase D (Kelas 7-9 SMP)',
-    kelas: '7',
-    rombel: 'A',
-    mapel: 'Bahasa Inggris'
-  });
+  const [newRombelName, setNewRombelName] = useState('');
 
   const [newStudentName, setNewStudentName] = useState('');
   const [newStudentNisn, setNewStudentNisn] = useState('');
   const [newStudentJk, setNewStudentJk] = useState('L');
 
-  const activeClass = data.classes.find((c) => c.id === data.activeClassId) || data.classes[0];
-
   const [editingCp, setEditingCp] = useState(false);
-  const [cpDraft, setCpDraft] = useState(activeClass.cpText);
+  const [cpDraft, setCpDraft] = useState(data.cpText);
 
+  // Form Jurnal Mengajar
   const [journalForm, setJournalForm] = useState({
     tanggal: new Date().toISOString().split('T')[0],
     jamKe: '1-2',
-    tpKode: activeClass.tps[0] ? `${activeClass.tps[0].kode} - ${activeClass.tps[0].judul}` : '',
+    tpKode: data.tps[0] ? `${data.tps[0].kode} - ${data.tps[0].judul}` : '',
     catatan: ''
   });
 
-  // Sinkronisasi draft saat berpindah rombel/tingkatan
-  useEffect(() => {
-    setEditingCp(false);
-    setCpDraft(activeClass.cpText);
-    setJournalForm((prev) => ({
-      ...prev,
-      tpKode: activeClass.tps[0] ? `${activeClass.tps[0].kode} - ${activeClass.tps[0].judul}` : ''
-    }));
-  }, [activeClass.id]);
-
-  // Simpan otomatis ke localStorage
+  // Simpan otomatis ke localStorage setiap kali data berubah
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch (e) {
-      console.error('Gagal menyimpan data:', e);
+      console.error('Gagal menyimpan ke localStorage:', e);
     }
   }, [data]);
 
@@ -229,13 +171,7 @@ export default function App() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Helper update khusus kelas aktif
-  const updateActiveClass = (updater) => {
-    setData((prev) => ({
-      ...prev,
-      classes: prev.classes.map((cls) => (cls.id === prev.activeClassId ? updater(cls) : cls))
-    }));
-  };
+  const activeClass = data.classes.find((c) => c.id === data.activeClassId) || data.classes[0];
 
   // --- HANDLERS CP & TP ---
   const handleAddTp = (e) => {
@@ -249,8 +185,8 @@ export default function App() {
       status: newTp.status,
       elemen: newTp.elemen
     };
-    updateActiveClass((cls) => ({ ...cls, tps: [...cls.tps, item] }));
-    setNewTp({ kode: '', judul: '', jp: 8, status: 'DRAFT', elemen: 'Pemahaman Konsep' });
+    setData((prev) => ({ ...prev, tps: [...prev.tps, item] }));
+    setNewTp({ kode: '', judul: '', jp: 8, status: 'DRAFT', elemen: 'Membaca - Memirsa' });
     setShowAddTp(false);
     showNotification('Tujuan Pembelajaran baru berhasil disimpan!');
   };
@@ -258,18 +194,18 @@ export default function App() {
   const handleUpdateTp = (e) => {
     e.preventDefault();
     if (!editingTp) return;
-    updateActiveClass((cls) => ({
-      ...cls,
-      tps: cls.tps.map((t) => (t.id === editingTp.id ? editingTp : t))
+    setData((prev) => ({
+      ...prev,
+      tps: prev.tps.map((t) => (t.id === editingTp.id ? editingTp : t))
     }));
     setEditingTp(null);
     showNotification('Perubahan Tujuan Pembelajaran disimpan!');
   };
 
   const handleDeleteTp = (id) => {
-    updateActiveClass((cls) => ({
-      ...cls,
-      tps: cls.tps.filter((t) => t.id !== id)
+    setData((prev) => ({
+      ...prev,
+      tps: prev.tps.filter((t) => t.id !== id)
     }));
     setEditingTp(null);
     showNotification('Tujuan Pembelajaran dihapus.');
@@ -277,28 +213,28 @@ export default function App() {
 
   // --- HANDLERS PRESENSI & JURNAL ---
   const handleStatusHadir = (studentId, status) => {
-    updateActiveClass((cls) => ({
-      ...cls,
-      students: cls.students.map((s) => (s.id === studentId ? { ...s, statusHadir: status } : s))
+    setData((prev) => ({
+      ...prev,
+      students: prev.students.map((s) => (s.id === studentId ? { ...s, statusHadir: status } : s))
     }));
   };
 
   const handleSaveJournal = (e) => {
     e.preventDefault();
-    const hadirCount = activeClass.students.filter((s) => s.statusHadir === 'H').length;
-    const tidakHadirCount = activeClass.students.length - hadirCount;
+    const hadirCount = data.students.filter((s) => s.statusHadir === 'H').length;
+    const tidakHadirCount = data.students.length - hadirCount;
     const newEntry = {
       id: `j-${Date.now()}`,
       tanggal: journalForm.tanggal,
       jamKe: journalForm.jamKe || '1-2',
-      tpKode: journalForm.tpKode || (activeClass.tps[0] ? `${activeClass.tps[0].kode} - ${activeClass.tps[0].judul}` : 'Materi Umum'),
+      tpKode: journalForm.tpKode || (data.tps[0] ? `${data.tps[0].kode} - ${data.tps[0].judul}` : 'Materi Umum'),
       catatan: journalForm.catatan || 'Kegiatan pembelajaran berjalan lancar.',
       hadirCount,
       tidakHadirCount
     };
-    updateActiveClass((cls) => ({
-      ...cls,
-      journals: [newEntry, ...cls.journals]
+    setData((prev) => ({
+      ...prev,
+      journals: [newEntry, ...prev.journals]
     }));
     setJournalForm((prev) => ({ ...prev, catatan: '' }));
     showNotification('Jurnal mengajar & rekap presensi berhasil disimpan!');
@@ -308,7 +244,7 @@ export default function App() {
   const handleAddStudent = (e) => {
     e.preventDefault();
     if (!newStudentName.trim()) return;
-    const nextId = activeClass.students.length > 0 ? Math.max(...activeClass.students.map((s) => s.id)) + 1 : 1;
+    const nextId = data.students.length > 0 ? Math.max(...data.students.map((s) => s.id)) + 1 : 1;
     const student = {
       id: nextId,
       nisn: newStudentNisn.trim() || `012345670${nextId}`,
@@ -319,7 +255,7 @@ export default function App() {
       f2: 80,
       sumatif: 80
     };
-    updateActiveClass((cls) => ({ ...cls, students: [...cls.students, student] }));
+    setData((prev) => ({ ...prev, students: [...prev.students, student] }));
     setNewStudentName('');
     setNewStudentNisn('');
     showNotification('Siswa baru berhasil ditambahkan!');
@@ -327,83 +263,60 @@ export default function App() {
 
   const handleGradeChange = (studentId, field, val) => {
     const num = Math.max(0, Math.min(100, Number(val) || 0));
-    updateActiveClass((cls) => ({
-      ...cls,
-      students: cls.students.map((s) => (s.id === studentId ? { ...s, [field]: num } : s))
+    setData((prev) => ({
+      ...prev,
+      students: prev.students.map((s) => (s.id === studentId ? { ...s, [field]: num } : s))
     }));
   };
 
-  // --- HANDLER TAMBAH ROMBEL SEMUA TINGKATAN ---
-  const handleFaseChange = (selectedFase) => {
-    const tpl = CURRICULUM_TEMPLATES[selectedFase];
-    const defaultKelasMap = {
-      'Fase A (Kelas 1-2 SD)': '1',
-      'Fase B (Kelas 3-4 SD)': '4',
-      'Fase C (Kelas 5-6 SD)': '5',
-      'Fase D (Kelas 7-9 SMP)': '7',
-      'Fase E (Kelas 10 SMA/SMK)': '10',
-      'Fase F (Kelas 11-12 SMA/SMK)': '11'
-    };
-    setRombelForm({
-      ...rombelForm,
-      fase: selectedFase,
-      kelas: defaultKelasMap[selectedFase] || '7',
-      mapel: tpl ? tpl.defaultMapel : 'Mata Pelajaran'
-    });
-  };
-
+  // --- HANDLER ROMBEL & RESET ---
   const handleAddRombel = (e) => {
     e.preventDefault();
-    const namaLengkap = `Kelas ${rombelForm.kelas} ${rombelForm.rombel} - ${rombelForm.mapel}`;
+    if (!newRombelName.trim()) return;
     const id = `cls-${Date.now()}`;
-    const newCls = createClassObject(id, namaLengkap, rombelForm.fase, rombelForm.mapel, rombelForm.kelas);
+    const newCls = {
+      id,
+      nama: newRombelName.trim(),
+      fase: 'Fase D',
+      mapel: 'Bahasa Inggris',
+      kelas: '8'
+    };
     setData((prev) => ({
       ...prev,
       classes: [...prev.classes, newCls],
       activeClassId: id
     }));
+    setNewRombelName('');
     setShowAddRombel(false);
-    showNotification(`Rombel "${namaLengkap}" (${rombelForm.fase}) berhasil dibuat!`);
-  };
-
-  const handleDeleteCurrentRombel = () => {
-    if (data.classes.length <= 1) {
-      showNotification('Minimal harus tersisa 1 kelas aktif.');
-      return;
-    }
-    const remaining = data.classes.filter((c) => c.id !== activeClass.id);
-    setData((prev) => ({
-      ...prev,
-      classes: remaining,
-      activeClassId: remaining[0].id
-    }));
-    showNotification('Rombel berhasil dihapus.');
+    showNotification(`Rombel "${newCls.nama}" ditambahkan dan diaktifkan!`);
   };
 
   const handleResetAll = () => {
     localStorage.removeItem(STORAGE_KEY);
-    setData(INITIAL_STATE);
-    showNotification('Semua tingkatan & data dikembalikan ke awal.');
+    setData(DEFAULT_DATA);
+    setCpDraft(DEFAULT_DATA.cpText);
+    showNotification('Semua data dikembalikan ke pengaturan awal.');
   };
 
+  // Menu Navigasi
   const menuItems = [
     { id: 'beranda', label: 'Beranda', icon: LayoutDashboard, group: 'UTAMA' },
     { id: 'cp-tp', label: 'CP, TP, & ATP', icon: FileText, group: 'PERANGKAT AJAR' },
     { id: 'prota-promes', label: 'Prota & Promes', icon: Calendar, group: 'PERANGKAT AJAR' },
-    { id: 'modul-ajar', label: 'Modul Ajar / RPP', icon: BookMarked, group: 'PERANGKAT AJAR', badge: activeClass.modulAjar.length },
+    { id: 'modul-ajar', label: 'Modul Ajar / RPP', icon: BookMarked, group: 'PERANGKAT AJAR', badge: data.modulAjar.length },
     { id: 'data-siswa', label: 'Data Siswa', icon: Users, group: 'KBM & PENILAIAN' },
     { id: 'jurnal-presensi', label: 'Jurnal & Presensi', icon: CheckCircle2, group: 'KBM & PENILAIAN' },
     { id: 'daftar-nilai', label: 'Daftar Nilai (e-Rapor)', icon: Award, group: 'KBM & PENILAIAN' },
     { id: 'pengaturan', label: 'Pengaturan & Profil', icon: Settings, group: 'SISTEM' }
   ];
 
-  const totalJp = activeClass.tps.reduce((acc, item) => acc + (Number(item.jp) || 0), 0);
+  const totalJp = data.tps.reduce((acc, item) => acc + (Number(item.jp) || 0), 0);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans text-slate-800">
       {/* NOTIFIKASI TOAST */}
       {toast && (
-        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm">
+        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm animate-fade-in">
           <Check className="w-4 h-4 text-emerald-400" />
           <span>{toast}</span>
         </div>
@@ -417,14 +330,14 @@ export default function App() {
           </div>
           <div>
             <h1 className="font-bold text-lg tracking-tight text-slate-900 leading-none">EduAdmin</h1>
-            <span className="text-[11px] text-slate-400 font-medium">Semua Jenjang (Fase A - F)</span>
+            <span className="text-[11px] text-slate-400 font-medium">Administrasi Guru Merdeka</span>
           </div>
         </div>
 
         {/* KARTU KELAS AKTIF */}
         <div className="p-4 border-b border-slate-100">
           <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-            <span>KELAS AKTIF • {activeClass.fase.split(' ')[0]} {activeClass.fase.split(' ')[1]}</span>
+            <span>KELAS AKTIF</span>
             <button
               onClick={() => setActiveMenu('pengaturan')}
               className="text-slate-400 hover:text-blue-600 transition"
@@ -438,22 +351,22 @@ export default function App() {
             {data.profile.semester} • {data.profile.tahunAjaran}
           </div>
 
-          {/* PILIHAN ROMBEL / TINGKATAN */}
+          {/* PILIHAN ROMBEL */}
           <div className="mt-3 flex flex-wrap gap-1.5">
             {data.classes.map((cls) => (
               <button
                 key={cls.id}
                 onClick={() => {
                   setData((prev) => ({ ...prev, activeClassId: cls.id }));
-                  showNotification(`Beralih ke ${cls.nama} (${cls.fase})`);
+                  showNotification(`Beralih ke ${cls.nama}`);
                 }}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                   cls.id === data.activeClassId
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                Kls {cls.kelas}
+                {cls.nama.split('-')[0].replace('Kelas ', '').trim()}
               </button>
             ))}
             <button
@@ -536,32 +449,32 @@ export default function App() {
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-sm">
                 <h2 className="text-xl font-bold">Selamat Datang, {data.profile.nama}!</h2>
                 <p className="text-blue-100 text-sm mt-1">
-                  {data.profile.sekolah} • {activeClass.nama} • {activeClass.fase}
+                  {data.profile.sekolah} • {activeClass.nama} ({data.profile.semester} {data.profile.tahunAjaran})
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                   <div className="text-xs font-semibold text-slate-400 uppercase">Tujuan Pembelajaran</div>
-                  <div className="text-2xl font-bold text-slate-800 mt-1">{activeClass.tps.length} TP</div>
+                  <div className="text-2xl font-bold text-slate-800 mt-1">{data.tps.length} TP</div>
                   <div className="text-xs text-emerald-600 mt-1 font-medium">
-                    {activeClass.tps.filter((t) => t.status === 'SELESAI').length} Terlaksana • Total {totalJp} JP
+                    {data.tps.filter((t) => t.status === 'SELESAI').length} Terlaksana • Total {totalJp} JP
                   </div>
                 </div>
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                   <div className="text-xs font-semibold text-slate-400 uppercase">Modul Ajar</div>
-                  <div className="text-2xl font-bold text-slate-800 mt-1">{activeClass.modulAjar.length} Modul</div>
-                  <div className="text-xs text-blue-600 mt-1 font-medium">{activeClass.fase}</div>
+                  <div className="text-2xl font-bold text-slate-800 mt-1">{data.modulAjar.length} Modul</div>
+                  <div className="text-xs text-blue-600 mt-1 font-medium">Kurikulum Merdeka Fase D</div>
                 </div>
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                   <div className="text-xs font-semibold text-slate-400 uppercase">Jumlah Siswa</div>
-                  <div className="text-2xl font-bold text-slate-800 mt-1">{activeClass.students.length} Siswa</div>
+                  <div className="text-2xl font-bold text-slate-800 mt-1">{data.students.length} Siswa</div>
                   <div className="text-xs text-slate-500 mt-1">Aktif di {activeClass.nama}</div>
                 </div>
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                   <div className="text-xs font-semibold text-slate-400 uppercase">Jurnal Mengajar</div>
-                  <div className="text-2xl font-bold text-slate-800 mt-1">{activeClass.journals.length} Pertemuan</div>
-                  <div className="text-xs text-emerald-600 mt-1 font-medium">Tersimpan otomatis per rombel</div>
+                  <div className="text-2xl font-bold text-slate-800 mt-1">{data.journals.length} Pertemuan</div>
+                  <div className="text-xs text-emerald-600 mt-1 font-medium">Tersimpan otomatis di browser</div>
                 </div>
               </div>
             </div>
@@ -570,6 +483,7 @@ export default function App() {
           {/* 2. CP, TP, & ATP */}
           {activeMenu === 'cp-tp' && (
             <div className="space-y-6">
+              {/* KARTU CAPAIAN PEMBELAJARAN */}
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -582,11 +496,11 @@ export default function App() {
                   <button
                     onClick={() => {
                       if (editingCp) {
-                        updateActiveClass((cls) => ({ ...cls, cpText: cpDraft }));
+                        setData((prev) => ({ ...prev, cpText: cpDraft }));
                         setEditingCp(false);
                         showNotification('Teks Capaian Pembelajaran diperbarui!');
                       } else {
-                        setCpDraft(activeClass.cpText);
+                        setCpDraft(data.cpText);
                         setEditingCp(true);
                       }
                     }}
@@ -605,11 +519,12 @@ export default function App() {
                   />
                 ) : (
                   <div className="mt-4 bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-sm text-slate-700 leading-relaxed">
-                    {activeClass.cpText}
+                    {data.cpText}
                   </div>
                 )}
               </div>
 
+              {/* KARTU ALUR TUJUAN PEMBELAJARAN (ATP) */}
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -627,7 +542,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-3">
-                  {activeClass.tps.map((tp) => (
+                  {data.tps.map((tp) => (
                     <div
                       key={tp.id}
                       className="border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-200 transition"
@@ -649,9 +564,9 @@ export default function App() {
                       <div className="flex items-center gap-2.5 self-end sm:self-center">
                         <button
                           onClick={() =>
-                            updateActiveClass((cls) => ({
-                              ...cls,
-                              tps: cls.tps.map((item) =>
+                            setData((prev) => ({
+                              ...prev,
+                              tps: prev.tps.map((item) =>
                                 item.id === tp.id
                                   ? { ...item, status: item.status === 'SELESAI' ? 'DRAFT' : 'SELESAI' }
                                   : item
@@ -679,6 +594,7 @@ export default function App() {
                   ))}
                 </div>
 
+                {/* TOMBOL TAMBAH TP BARU */}
                 {!showAddTp ? (
                   <button
                     onClick={() => setShowAddTp(true)}
@@ -716,13 +632,15 @@ export default function App() {
                       />
                     </div>
                     <div className="flex items-center justify-between gap-3">
-                      <input
-                        type="text"
-                        placeholder="Elemen CP (mis. Pemahaman Konsep / Membaca)"
+                      <select
                         value={newTp.elemen}
                         onChange={(e) => setNewTp({ ...newTp, elemen: e.target.value })}
-                        className="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white flex-1"
-                      />
+                        className="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"
+                      >
+                        <option>Menyimak - Berbicara</option>
+                        <option>Membaca - Memirsa</option>
+                        <option>Menulis - Mempresentasikan</option>
+                      </select>
                       <div className="flex gap-2">
                         <button
                           type="button"
@@ -752,7 +670,7 @@ export default function App() {
                 <div>
                   <h2 className="text-lg font-bold text-slate-900">Program Tahunan & Program Semester (Promes)</h2>
                   <p className="text-xs text-slate-500">
-                    {activeClass.nama} • {activeClass.fase} • {data.profile.semester} {data.profile.tahunAjaran}
+                    Distribusi Alokasi Waktu {activeClass.mapel} • {data.profile.semester} {data.profile.tahunAjaran}
                   </p>
                 </div>
                 <button
@@ -778,7 +696,7 @@ export default function App() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {activeClass.tps.map((tp, idx) => (
+                    {data.tps.map((tp, idx) => (
                       <tr key={tp.id} className="hover:bg-slate-50/70">
                         <td className="py-3 px-4 font-bold text-blue-600">{tp.kode}</td>
                         <td className="py-3 px-4 font-medium text-slate-800">{tp.judul}</td>
@@ -799,12 +717,14 @@ export default function App() {
           {/* 4. MODUL AJAR / RPP */}
           {activeMenu === 'modul-ajar' && (
             <div className="space-y-4">
-              <div>
-                <h2 className="text-lg font-bold text-slate-900">Modul Ajar Kurikulum Merdeka ({activeClass.fase})</h2>
-                <p className="text-xs text-slate-500">Perangkat pembelajaran sesuai tingkat {activeClass.nama}</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900">Modul Ajar Kurikulum Merdeka</h2>
+                  <p className="text-xs text-slate-500">Perangkat pembelajaran lengkap berbasis Tujuan Pembelajaran</p>
+                </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {activeClass.modulAjar.map((modul) => (
+                {data.modulAjar.map((modul) => (
                   <div key={modul.id} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between">
@@ -838,9 +758,11 @@ export default function App() {
           {/* 5. DATA SISWA */}
           {activeMenu === 'data-siswa' && (
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
-              <div>
-                <h2 className="text-lg font-bold text-slate-900">Daftar Peserta Didik ({activeClass.nama})</h2>
-                <p className="text-xs text-slate-500">Total: {activeClass.students.length} Siswa Aktif</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900">Daftar Peserta Didik ({activeClass.nama})</h2>
+                  <p className="text-xs text-slate-500">Total: {data.students.length} Siswa Aktif</p>
+                </div>
               </div>
 
               <form onSubmit={handleAddStudent} className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
@@ -886,7 +808,7 @@ export default function App() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {activeClass.students.map((s, index) => (
+                    {data.students.map((s, index) => (
                       <tr key={s.id} className="hover:bg-slate-50">
                         <td className="py-3 px-3 text-slate-500">{index + 1}</td>
                         <td className="py-3 px-3 font-mono text-xs text-slate-600">{s.nisn}</td>
@@ -904,11 +826,12 @@ export default function App() {
           {activeMenu === 'jurnal-presensi' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* FORM JURNAL */}
                 <form
                   onSubmit={handleSaveJournal}
                   className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 h-fit"
                 >
-                  <h2 className="text-base font-bold text-slate-900">Jurnal Mengajar ({activeClass.nama})</h2>
+                  <h2 className="text-base font-bold text-slate-900">Jurnal Mengajar</h2>
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 mb-1">Tanggal Pertemuan</label>
                     <input
@@ -935,7 +858,7 @@ export default function App() {
                       onChange={(e) => setJournalForm({ ...journalForm, tpKode: e.target.value })}
                       className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm bg-white"
                     >
-                      {activeClass.tps.map((tp) => (
+                      {data.tps.map((tp) => (
                         <option key={tp.id} value={`${tp.kode} - ${tp.judul}`}>
                           {tp.kode} - {tp.judul}
                         </option>
@@ -960,6 +883,7 @@ export default function App() {
                   </button>
                 </form>
 
+                {/* DAFTAR HADIR SISWA */}
                 <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -974,13 +898,13 @@ export default function App() {
                         <Printer className="w-3.5 h-3.5" /> Cetak
                       </button>
                       <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-xs font-bold text-slate-700">
-                        Total: {activeClass.students.length}
+                        Total: {data.students.length}
                       </span>
                     </div>
                   </div>
 
                   <div className="divide-y divide-slate-100">
-                    {activeClass.students.map((s, idx) => (
+                    {data.students.map((s, idx) => (
                       <div key={s.id} className="py-3 flex items-center justify-between gap-2">
                         <span className="text-sm font-semibold text-slate-800">
                           {idx + 1}. {s.nama}
@@ -1012,10 +936,11 @@ export default function App() {
                 </div>
               </div>
 
+              {/* RIWAYAT JURNAL MENGAJAR */}
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h3 className="text-base font-bold text-slate-900 mb-3">Riwayat Jurnal Mengajar ({activeClass.nama})</h3>
+                <h3 className="text-base font-bold text-slate-900 mb-3">Riwayat Jurnal Mengajar Tersimpan</h3>
                 <div className="space-y-3">
-                  {activeClass.journals.map((j) => (
+                  {data.journals.map((j) => (
                     <div key={j.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div>
                         <div className="text-xs font-bold text-blue-600">
@@ -1039,7 +964,7 @@ export default function App() {
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-900">Daftar Nilai Formatif & Sumatif ({activeClass.nama})</h2>
+                  <h2 className="text-lg font-bold text-slate-900">Daftar Nilai Formatif & Sumatif (e-Rapor)</h2>
                   <p className="text-xs text-slate-500">Klik angka nilai untuk mengedit langsung; Nilai Akhir dihitung otomatis.</p>
                 </div>
                 <button
@@ -1064,7 +989,7 @@ export default function App() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {activeClass.students.map((s, idx) => {
+                    {data.students.map((s, idx) => {
                       const akhir = Math.round((Number(s.f1) + Number(s.f2) + Number(s.sumatif)) / 3);
                       const predikat = akhir >= 90 ? 'A (Sangat Baik)' : akhir >= 80 ? 'B (Baik)' : 'C (Cukup)';
                       return (
@@ -1114,8 +1039,8 @@ export default function App() {
           {activeMenu === 'pengaturan' && (
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm max-w-2xl space-y-5">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">Pengaturan Identitas Guru & Rombel</h2>
-                <p className="text-xs text-slate-500">Perubahan tersimpan otomatis di browser Anda.</p>
+                <h2 className="text-lg font-bold text-slate-900">Pengaturan Identitas Guru & Sekolah</h2>
+                <p className="text-xs text-slate-500">Perubahan akan otomatis tampil di kop halaman dan tersimpan di browser Anda.</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -1164,7 +1089,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => showNotification('Identitas berhasil disimpan!')}
@@ -1172,22 +1097,13 @@ export default function App() {
                 >
                   <Save className="w-4 h-4" /> Simpan Pengaturan
                 </button>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={handleDeleteCurrentRombel}
-                    className="px-3 py-2 rounded-xl border border-amber-200 text-amber-700 text-xs font-semibold hover:bg-amber-50"
-                  >
-                    Hapus Rombel Aktif
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleResetAll}
-                    className="px-3 py-2 rounded-xl border border-rose-200 text-rose-600 text-xs font-semibold hover:bg-rose-50 flex items-center gap-1.5"
-                  >
-                    <RotateCcw className="w-4 h-4" /> Reset Semua Data
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleResetAll}
+                  className="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 text-sm font-semibold hover:bg-rose-50 flex items-center gap-1.5"
+                >
+                  <RotateCcw className="w-4 h-4" /> Reset Data Bawaan
+                </button>
               </div>
             </div>
           )}
@@ -1275,73 +1191,20 @@ export default function App() {
         </div>
       )}
 
-      {/* MODAL TAMBAH ROMBEL SEMUA TINGKATAN */}
+      {/* MODAL TAMBAH ROMBEL */}
       {showAddRombel && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleAddRombel} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-slate-900">Tambah Rombel / Tingkatan Baru</h3>
-              <button type="button" onClick={() => setShowAddRombel(false)} className="text-slate-400 hover:text-slate-600">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Pilih Jenjang / Fase Kurikulum</label>
-              <select
-                value={rombelForm.fase}
-                onChange={(e) => handleFaseChange(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm bg-white"
-              >
-                {Object.keys(CURRICULUM_TEMPLATES).map((faseKey) => (
-                  <option key={faseKey} value={faseKey}>
-                    {faseKey}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Tingkat Kelas (1-12)</label>
-                <select
-                  value={rombelForm.kelas}
-                  onChange={(e) => setRombelForm({ ...rombelForm, kelas: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm bg-white"
-                >
-                  {['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].map((k) => (
-                    <option key={k} value={k}>
-                      Kelas {k}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Nama Rombel</label>
-                <input
-                  type="text"
-                  placeholder="Contoh: A / B / IPA-1"
-                  value={rombelForm.rombel}
-                  onChange={(e) => setRombelForm({ ...rombelForm, rombel: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Mata Pelajaran</label>
-              <input
-                type="text"
-                placeholder="Contoh: Matematika / IPAS / Bahasa Indonesia"
-                value={rombelForm.mapel}
-                onChange={(e) => setRombelForm({ ...rombelForm, mapel: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm"
-                required
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
+          <form onSubmit={handleAddRombel} className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl space-y-4">
+            <h3 className="font-bold text-slate-900">Tambah Rombongan Belajar</h3>
+            <input
+              type="text"
+              placeholder="Contoh: Kelas 8 C - Bahasa Inggris"
+              value={newRombelName}
+              onChange={(e) => setNewRombelName(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm"
+              required
+            />
+            <div className="flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setShowAddRombel(false)}
@@ -1353,7 +1216,7 @@ export default function App() {
                 type="submit"
                 className="px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700"
               >
-                Buat Rombel
+                Tambah
               </button>
             </div>
           </form>
